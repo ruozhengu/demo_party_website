@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900');
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.party {
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+    text-align: center;
+    color: #5e5e5e;
+
+}
+
+.blur-here {
+  background-image: url("http://s2.favim.com/orig/140609/colorful-party-people-tumblr-Favim.com-1827292.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+	content: "";
+  position: aboslute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: -1;
+  filter: blur(20px);
+  transform: scale(1.4);
+}
+
+.party__box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, .2);
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.close--btn {
+    position: absolute;
+    top: -25px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, .2);
+
+    z-index: 10;
+}
+
+.close--btn .glyphicon {
+    font-size: 17px;
+    font-weight: 100;
+    color: #eb1835;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.close--btn .glyphicon:hover {
+   transform: translate(-50%,-50%);
+}
+
+.party__box-header {
+    background-image: url("http://s2.favim.com/orig/140609/colorful-party-people-tumblr-Favim.com-1827292.png");
+    background-size: cover;
+    background-position: center 80%;
+    position: relative;
+    color: #fff;
+    height: 180px;
+}
+
+.party__text {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 42px;
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: .6px;
+    text-shadow: 0px 3px 22px rgba(0, 0, 0, .5);
+}
+
+
+
+.party__box-info {
+    position: relative;
+    padding: 40px 0 75px;
+}
+
+.heading-secondary {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.heading-secondary span {
+  display: block;
+}
+
+.heading-secondary span:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+span.party__offer,
+span.party__time {
+  font-weight: bold;
+}
+
+
+
+/* Button */
+.info--btn:link,
+.info--btn:visited {
+    display: inline-block;
+    position: absolute;
+    left: 5%;
+    bottom: -32px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    color: #fff;
+    width: 90%;
+    background-image: linear-gradient(45deg, #ff487b 20%, #ff7147);
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, .2);
+    padding: 18px 50px;
+    border-radius: 100px;
+    transition: all .3s;
+
+}
+
+
+.info--btn:hover,
+.info--btn:active{
+    color: #fff;
+/*     background-image: linear-gradient(225deg, #ff487b 40%, #ff7147); */
+    width: 98%;
+    left: 1%;
+    bottom: -20px;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+
+
+/* TEST */
+/*  @-webkit-keyframes pulse {
+  0% {
+    width: 90%;
+    left: 5%;
+  }
+  25% {
+    width: 98%;
+    left: 1%;
+  }
+  55% {
+    width: 90%;
+    left: 5%;
+  }
+  75% {
+    width: 98%;
+    left: 1%;
+  }
+  100% {
+    width: 90%;
+    left: 5%;
+  }
+}
+
+
+ .info--btn {
+  -webkit-animation: pulse 2s infinite;
+  -webkit-backface-visibility: hidden;
+}
+ */
+ 
