@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Shop Your Party</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+
+      <link rel="stylesheet" href="../static/selectstyle.css">
+
+
+</head>
+
+<body>
+<form action="{{ url_for('createOrder') }}" method="post">
+  <h1>Shop Your Party</h1></br>
+
+<div class="shopping-cart">
+
+  <div class="column-labels">
+    <label class="product-image">Image</label>
+    <label class="product-details">Product</label>
+    <label class="product-price">Price</label>
+    <label class="product-quantity">Quantity</label>
+    <label class="product-line-price">Total</label>
+  </div>
+  {% for k, v in product.items() %}
+  <div class="product">
+    <div class="product-image">
+      <img style="height:50%;width:30%" src="http://i42.tinypic.com/hs0vmw.jpg">
+    </div>
+    <div class="product-details">
+      <div class="product-title">{{k}}</div>
+      <p class="product-description">The Best Product of All Time</p>
+    </div>
+    <div class="product-price">{{v}}</div>
+    <div class="product-quantity">
+      <input type="number" value="0" min="0">
+    </div>
+
+
+    <div class="product-line-price">0</div>
+  </div>
+  {% endfor %}
+
+
+
+  <div class="totals">
+    <div class="totals-item">
+      <label>Subtotal</label>
+      <div class="totals-value" id="cart-subtotal">0</div>
+    </div>
+    <div class="totals-item">
+      <label>Tax (5%)</label>
+      <div class="totals-value" id="cart-tax">0</div>
+    </div>
+
+    <div class="totals-item totals-item-total">
+      <label>Grand Total</label>
+      <div class="totals-value" id="cart-total">0</div>
+    </div>
+  </div>
+
+  <button class="checkout">Checkout</button>
+
+</div>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+
+
+    <script  src="../static/selectscript.js"></script>
+
+
+
+</form>
+
+</body>
+
+</html>

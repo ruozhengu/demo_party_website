@@ -3,29 +3,30 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>party company</title>
+  <title>Perfect Party Inc.</title>
 
 
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
-
-      <link rel="stylesheet" href="../static/styleDashboard.css">
-
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <link rel="stylesheet" href="../static/styleDashboard.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 
 <body>
-
+<form action="" method="post" role="form">
 
 <nav class="navbar navbar-default navbar-fixed-top navbar-top">
   <div class="container">
     <div class="navbar-header"><a class="navbar-brand">CS348 Project</a></div>
     <div class="navbar-collapse collapse">
       <div class="nav navbar-nav navbar-right">
-        <li><a href="#section_intro">INTRO</a></li>
-        <li><a href="#section_service">SERVICE</a></li>
-        <li><a href="#section_value">VALUE</a></li>
-        <li><a href="#section_customized">CUSTOMIZED</a></li>
+        <li><a href="/createOrder">Create New Order</a></li>
+        <li><a href="/searchOrder">Search Past Order</a></li>
+        <li><a href="/admin">Admin</a></li>
       </div>
     </div>
   </div>
@@ -34,7 +35,7 @@
   <div class="container">
     <h1 data-0="transform: translateY(-50px)" data-500="transform: translateY(100px)">Plan Your Party</h1>
     <hr/>
-    <h4>The Party Company</h4>
+    <h4><font color='black'>Perfect Party Company</font></h4>
   </div>
 </header>
 <section id="section_intro">
@@ -57,7 +58,7 @@
       </div>
       <div class="col-md-4 col-sm-12">
         <div class="img_wrap" data-bottom-top="transform: translateY(-50px);opacity:0" data-center="transform:translateY(0px);opacity:1"><img src="https://c1.staticflickr.com/5/4374/36539918022_01376be142_k.jpg" alt=""/></div>
-        <h3 data-bottom-top="transform: translateY(-50px);opacity:0" data-center="transform:translateY(0px);opacity:1">Choose Theme</h3>
+        <h3 data-bottom-top="transform: translateY(-50px);opacity:0" data-center="transform:translateY(0px);opacity:1">Theme</h3>
         <p>With hundreds of customized themes, our experts will reach you once an order is made and customize your event based on topic, audience and goal. We believe the best party environment is a combination of creativity, passion and dedication.</p>
       </div>
       <div class="col-md-4 col-sm-12">
@@ -133,10 +134,10 @@
 
 
 
-    <script  src="../static/scriptDashboard.js"></script>
+<script  src="../static/scriptDashboard.js"></script>
 
 
-
+</form>
 
 </body>
 
