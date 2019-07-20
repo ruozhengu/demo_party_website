@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Dashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script>
+                $(document).ready(function(){
+                  $('[data-toggle="tooltip"]').tooltip();
+                });
+                </script>
+            <style>
+            .vcenter {
+              display: inline-block;
+              float: none;
+              right:83%;
+              width:12%;
+            }
+            #indent {
+              text-indent:3px
+            }
+            #accordion {
+              height:130%
+            }
+
+            .card {
+              left:-1%;
+              width:107%;
+              height:100%;
+            }
+
+           #submit_button1 {
+             margin-top:40px;
+             margin-left: 1%;
+           }
+           #submit_button2 {
+             margin-top:40px;
+           }
+           .btn-group {
+             margin-top:3%;
+           }
+           #n {
+             margin-top:1%;
+           }
+            .btn{
+	            border-radius: 34px;
+            }
+            .nav{
+              width:12%;
+            }
+            </style>
+          </head>
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <script>
+              var messages = {{ messages | safe }};
+              for (var i=0; i<messages.length; i++) {
+                if (i==messages.length-1){
+                  alert(messages[i]);
+                }
+                break;
+              }
+            </script>
+          {% endif %}
+        {% endwith %}
+
+<body>
+
+  <form action="" method="post">
+      <div class="container">
+
+      </br>
+<h1>Order Dashboard</h1>
+
+</br>
+<div class="panel panel-default"><div class="panel-body">
+    <ul class="nav nav-pills flex-column col-md-2">
+      <li class="active"><a href="#tab_a" data-toggle="pill"><div id="indent"><h6>Active Order</h6></div></a></li>
+      <li><a href="#tab_b" data-toggle="pill"><h6>Completed Order</h6></a></li>
+      <li><a href="#tab_c" data-toggle="pill"><h6>Cancelled Order</h6></a></li>
+    </ul>
+
+    <div class="tab-content col-md-10">
+        <div class="tab-pane active" id="tab_a">
+
+
+            <div id="accordion">
+                <div class="card">
+                  <div class="card-header" >
+                  <table class="table table-borderless" >
+                      {% for k, v in models.items() %}
+               {% if v.is_deployed %}
+               <tr class="success">
+               {% endif %}
+               {% if not v.is_deployed %}
+               <tr>
+              {% endif %}
+               <td style="width: 25%;" ><h4><div id="n"><a href="#" data-toggle="tooltip" data-placement="right" title="Deployed : {{v.is_deployed}}"><font color="black">{{k}}</font></a></div></h4></td>
+
+                  <td style="width: 40%;"><button type="button" id="but" class="btn btn-outline-secondary btn-lg" data-toggle="collapse" data-target="#{{k}}">Model Details</button>
+                    <div id="{{k}}" class="collapse">
+                    </br>
+                    <table class="table table-bordered" name="table1" style="width:30%">
+                        <tbody>
+                            <tr><td><b>Time</b></td><td>{{v.time}}</td></tr>
+                            <tr ><td><b>User</b></td><td>{{v.username}}</td></tr>
+                            <tr><td><b>Labels</b></td><td>{{v.columns}}</td></tr>
+                            <tr class="table-warning"><td><b>Deployed</b></td><td>{{v.is_deployed}}</td></tr>
+                            <tr><td><b>Training Data </b></td><td>{{v.train_data_path}}</td></tr>
+                            <tr><td><b>Hyperparameter</b></td><td>{{v.hyperparameter}} </td></tr>
+
+                        </tbody>
+                        </table>
+                        </div>
+                       </td>
+                  <td style="width:30%"><div class="btn-group .btn-lg round" >
+                      {% if v.is_deployed %}
+                      <button type="submit" name="deploy" value={{k}} class="btn .btn-lg btn-success ">Deploying...</button>
+                      {% endif %}
+                      {% if not v.is_deployed %}
+                      <button type="submit" name="deploy" value={{k}} class="btn .btn-lg btn-primary ">Deploy</button>
+                      {% endif %}
+                      {% if v.is_deployed %}
+                      <button type="submit" name="undeploy" value={{k}} class="btn .btn-lg btn-warning">Undeploy</button>
+                      {% endif %}
+                      <button type="submit" name="download" value={{k}} class="btn .btn-lg btn-info">Download</button>
+                      <button type="submit" name="delete" value={{k}} class="btn .btn-lg btn-danger">Delete</button>
+                    </div></td>
+
+               </tr>
+               {% endfor %}
+
+            </table>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+    <div class="tab-pane" id="tab_b">
+      <div id="accordion">
+        {% for k1 in train %}
+          <div class="card">
+            <div class="card-header" >
+            <table class="table table-borderless" >
+
+         <tr>
+         <td style="width: 70%" ><h5>{{k1}}</h5></td>
+
+            <td style="width:20%"><div class="btn-group .btn-lg round" >
+
+                <button type="submit" name="download2" value={{k1}} class="btn btn-success .btn-lg btn-info">Download</button>
+                <button type="submit" name="delete2" value={{k1}} class="btn btn-success .btn-lg btn-danger">Delete</button>
+              </div></td>
+
+         </tr>
+
+
+      </table>
+
+
+      </div>
+    </div>
+    {% endfor %}
+
+
+
+</div>
+  </div>
+  <div class="tab-pane" id="tab_c">
+  <div id="accordion">
+    {% for k2 in test %}
+      <div class="card">
+        <div class="card-header" >
+        <table class="table table-borderless" >
+
+     <tr>
+     <td style="width: 70%" ><h5>{{k2}}</h5></td>
+
+        <td style="width:20%"><div class="btn-group .btn-lg round" >
+
+            <button type="submit" name="download2" value={{k2}} class="btn btn-success .btn-lg btn-info">Download</button>
+            <button type="submit" name="delete2" value={{k2}} class="btn btn-success .btn-lg btn-danger">Delete</button>
+          </div></td>
+
+     </tr>
+
+
+  </table>
+
+
+  </div>
+</div>
+{% endfor %}
+
+</div>
+
+
+</div>
+</div>
+
+
+
+
+
+          </br>
+<button id="submit_button2" name="compare" type="submit" class="btn btn-success .btn-lg button_define" value='compare'>Compare Models</button>
+<button id="submit_button2" type="submit" class="btn btn-primary .btn-lg button_define" name="submit_button" value='train'>Train New Model</button>
+
+
+</br>
+
+</div>
+</div>
+
+</form>
+</div>
+</div>
+
+</body>
+
+</div>
