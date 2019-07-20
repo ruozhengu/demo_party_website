@@ -1,6 +1,6 @@
 /* Set rates + misc */
 var taxRate = 0.05;
-var shippingRate = 15.00;
+var shippingRate = 00.00;
 var fadeTime = 300;
 
 
@@ -26,8 +26,8 @@ function recalculateCart()
 
   /* Calculate totals */
   var tax = subtotal * taxRate;
-  var shipping = (subtotal > 0 ? shippingRate : 0);
-  var total = subtotal + tax + shipping;
+  var shipping = 15
+  var total = subtotal + tax + shipping - 15;
 
 
   /* Update totals display */
@@ -35,7 +35,7 @@ function recalculateCart()
     $('#cart-subtotal').html(subtotal.toFixed(2));
     $('#cart-tax').html(tax.toFixed(2));
     $('#cart-shipping').html(shipping.toFixed(2));
-    $('#cart-total').html(total.toFixed(2));
+    $('#cart-total').html((total-15).toFixed(2));
     if(total == 0){
       $('.checkout').fadeOut(fadeTime);
     }else{

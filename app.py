@@ -1,6 +1,8 @@
 from flask import Flask
 from flask import render_template, Flask, flash, request, redirect, url_for, Response, session, abort, jsonify, send_file
 import json
+import dbConnect
+
 app = Flask(__name__, static_path='/static')
 app.secret_key = 'cs348'
 
@@ -9,27 +11,73 @@ product = {
     "Decor A" : 89.99, "Decor B" : 78, "Decor C" : 100, "Decor D" : 9, "Free Stuff" : 0
 }
 
+price = 0
+
 @app.route('/createOrder', methods = ['GET', 'POST'])
 def createOrder():
     global product
-    price = 0
+    global price
     if request.method == 'GET':
         return render_template('select.html', product=product)
     else:
-        price = request.get_data()
-        price = price[6:]
-        return redirect(url_for('orderInfo', price=price))
+        if not price == 0:
+            return redirect(url_for('orderInfo'))
+        p = request.get_data()
+        if not p == 0:
+            price = p[6:]
+        else:
+            price = p
+        print(price)
+        return redirect(url_for('orderInfo'))
 
-@app.route('/orderInfo/<price>', methods = ['GET', 'POST'])
-def orderInfo(price):
+@app.route('/orderInfo', methods = ['GET', 'POST'])
+def orderInfo():
+    global price
     price = float(price)
+    print(price)
     if request.method == 'GET':
         return "hello"
 
 @app.route('/searchOrder', methods = ['GET', 'POST'])
 def searchOrder():
     if request.method == 'GET':
-        return "world"
+        return render_template('login.html')
+    else:
+        return redirect(url_for('userDashboaerd'))
+
+@app.route('/signup', methods = ['GET', 'POST'])
+def signup():
+    if request.method == 'GET':
+        return render_template('signup.html')
+    else:
+        name = request.form['username']
+        password = request.form['password']
+        password2 = request.form['password2']
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        phone = request.form['phone']
+        email = request.form['email']
+        address = request.form['address']
+        postalcode = request.form['postalcode']
+        if name == "" or password  == "" or firstname == "" or \
+           lastname == "" or phone == "" or email == "" or address == "" or \
+           postalcode == "":
+           flash("Error! You must fill in all information.")
+           return render_template('signup.html')
+        if len(password) < 6:
+            flash("Error! You password must be at least 6 digits")
+            return render_template('signup.html')
+        if password == password2:
+            #add account into sql
+            return redirect(url_for('userDashboard'))
+        else:
+            flash("Error! You password inputs do not match.")
+            return render_template('signup.html')
+
+@app.route('/userDashboard', methods = ['GET', 'POST'])
+def userDashboard():
+    return "haha"
+
 
 @app.route('/admin', methods = ['GET', 'POST'])
 def admin():
@@ -58,12 +106,6 @@ def adminDashboard():
 def dashboard():
     if request.method == 'GET':
         return render_template('dashboard.html')
-    # else:
-    #     print("post")
-    #     d = request.args.get('teamData')
-    #     print(d)
-    #     print(request.json)
-    #     return redirect(url_for('admin'))
 
 
 @app.route('/', methods = ['GET', 'POST'])
