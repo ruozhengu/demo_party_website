@@ -49,7 +49,6 @@ schema_event = "INSERT INTO  perfect_party.Event (Event_id , \
                     Venue_id ) VALUES \
                     (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
-
 def insert_db(table, schema, value):
     """
         Insert record into table

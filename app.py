@@ -64,7 +64,13 @@ def searchOrder():
     if request.method == 'GET':
         return render_template('login.html')
     else:
-        return redirect(url_for('userDashboaerd'))
+        name = request.form['username']
+        password = request.form['password']
+        record = select_db("Customer", "Userid='" + name + "' and password = '" + password +"'")
+        if record == []:
+            flash("Error, incorrect username or password")
+            return redirect(url_for('searchOrder'))
+        return redirect(url_for('userDashboard'))
 
 @app.route('/signup', methods = ['GET', 'POST'])
 def signup():
