@@ -14,7 +14,7 @@ eventType = {"1" : "birthday",
              "3" : "professional",
              "4" : "other"}
 product_price = {"000000":12.99,"000001":45.99,"000003":100.99,"000004":70, "000005":12,"000006":33}
-paytype = {"visa" : 1, "master":2, "amex":3,"vishwa":4, "cash":5}
+paytype = {"visa" : 1, "master-card":2, "amex":3,"vishwa":4, "cash":5}
 
 price = 0
 
@@ -120,7 +120,7 @@ def payment(pk_id, billing):
 
 @app.route('/success', methods = ['GET', 'POST'])
 def success():
-    return "Success"
+    return render_template('success.html')
 
 
 @app.route('/userlogin', methods = ['GET', 'POST'])
