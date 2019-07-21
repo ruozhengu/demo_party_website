@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Responsive Shopping Cart</title>
+  <title>Shopping Cart</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
@@ -24,12 +24,28 @@
       <th>Action</th>
     </tr>
     <tr>
-      <td>Dingo Dog Bones</td>
-      <td><button class="add-product" onclick="addProduct(0)">Add</button></td>
+      <td>000000 - flower type a - red</td>
+      <td><button class="add-product" id="1" onclick="addProduct(0)">Add</button></td>
     </tr>
     <tr>
-      <td>Nutro™ Adult Lamb and Rice Dog Food</td>
-      <td><button class="add-product" onclick="addProduct(1)">Add</button></td>
+      <td>000001 - flower type b - blue</td>
+      <td><button class="add-product" id="2" onclick="addProduct(1)">Add</button></td>
+    </tr>
+    <tr>
+      <td>000003 - flower type c - blue</td>
+      <td><button class="add-product" id="3" onclick="addProduct(2)">Add</button></td>
+    </tr>
+    <tr>
+      <td>000004 - funk music</td>
+      <td><button class="add-product" id="4" onclick="addProduct(3)">Add</button></td>
+    </tr>
+    <tr>
+      <td>000005 - blues music</td>
+      <td><button class="add-product" id="5" onclick="addProduct(4)">Add</button></td>
+    </tr>
+    <tr>
+      <td>000006 - pop music</td>
+      <td><button class="add-product" id="6" onclick="addProduct(5)">Add</button></td>
     </tr>
 
   </table>
@@ -53,54 +69,17 @@
     <label class="product-line-price">Total</label>
   </div>
 
-  <div class="product">
-    <div class="product-image">
-      <img src="https://s.cdpn.io/3/dingo-dog-bones.jpg">
-    </div>
-    <div class="product-details">
-      <div class="product-title">Dingo Dog Bones</div>
-      <p class="product-description">The best dog bones of all time. Holy crap. Your dog will be begging for these things! I got curious once and ate one myself. I'm a fan.</p>
-    </div>
-    <div class="product-price">12.99</div>
-    <div class="product-quantity">
-      <input type="number" value="2" min="1">
-    </div>
-    <div class="product-removal">
-      <button class="remove-product">
-        Remove
-      </button>
-    </div>
-    <div class="product-line-price">25.98</div>
-  </div>
 
-  <div class="product">
-    <div class="product-image">
-      <img src="https://s.cdpn.io/3/large-NutroNaturalChoiceAdultLambMealandRiceDryDogFood.png">
-    </div>
-    <div class="product-details">
-      <div class="product-title">Nutro™ Adult Lamb and Rice Dog Food</div>
-      <p class="product-description">Who doesn't like lamb and rice? We've all hit the halal cart at 3am while quasi-blackout after a night of binge drinking in Manhattan. Now it's your dog's turn!</p>
-    </div>
-    <div class="product-price">45.99</div>
-    <div class="product-quantity">
-      <input type="number" value="1" min="1">
-    </div>
-    <div class="product-removal">
-      <button class="remove-product">
-        Remove
-      </button>
-    </div>
-    <div class="product-line-price">45.99</div>
-  </div>
+
 
   <div class="totals">
     <div class="totals-item">
       <label>Subtotal</label>
-      <div class="totals-value" id="cart-subtotal">71.97</div>
+      <div class="totals-value" id="cart-subtotal">0</div>
     </div>
     <div class="totals-item">
-      <label>Tax (5%)</label>
-      <div class="totals-value" id="cart-tax">3.60</div>
+      <label>Tax (13%)</label>
+      <div class="totals-value" id="cart-tax">0</div>
     </div>
     <div class="totals-item">
       <label>Shipping</label>
@@ -108,7 +87,7 @@
     </div>
     <div class="totals-item totals-item-total">
       <label>Grand Total</label>
-      <div class="totals-value" id="cart-total">90.57</div>
+      <div class="totals-value" id="cart-total">15</div>
     </div>
   </div>
   <form action="" method="post">
@@ -139,6 +118,9 @@
     var tax = subtotal * taxRate;
     var shipping = (subtotal > 0 ? shippingRate : 0);
     var total = subtotal + tax + shipping;
+
+
+
     var data = {"price":total}
     $.ajax({
         type : "POST",
@@ -153,6 +135,41 @@
     console.log(data);});
 
     </script>
+    <script>
+    var count1 = 0
+    var count2 = 0
+    var count3 = 0
+    var count4 = 0
+    var count5 = 0
+    var count6 = 0
+    function addProduct(id){
+      if (id == 0) {
+        count1 += 1
+      } else if (id == 1) {
+        count2 += 1
+      } else if (id == 2) {
+        count3 += 1
+      } else if (id == 3) {
+        count4 += 1
+      } else if (id == 4) {
+        count5 += 1
+      } else {
+        count6 += 1
+      }
+      data = {"p1":count1, "p2":count2, "p3":count3, "p4":count4, "p5":count5, "p6":count6}
+      $.ajax({
+          type : "POST",
+          url : "{{ url_for('shoppingcart') }}",
+          data: JSON.stringify(data),
+          contentType: 'application/json;charset=UTF-8',
+          success: function(result) {
+              console.log(result);
+          }
+      });
+      addtoCart(features[id]);
+    }
+    </script>
+
 </body>
 
 </html>

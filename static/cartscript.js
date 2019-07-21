@@ -1,10 +1,15 @@
 /* Set rates + misc */
-var taxRate = 0.05;
+var taxRate = 0.13;
 var shippingRate = 15.00;
 var fadeTime = 300;
 var features=[];
-features.push({"item":"Dingo Dog Bones","description":"The best dog bones of all time. Holy crap. Your dog will be begging for these things! I got curious once and ate one myself. I`m a fan.","img":'https://s.cdpn.io/3/dingo-dog-bones.jpg',"price":12.99});
-features.push({"item":"Nutro™ Adult Lamb and Rice Dog Food","description":"Who doesn't like lamb and rice? We've all hit the halal cart at 3am while quasi-blackout after a night of binge drinking in Manhattan. Now it`s your dog`s turn!","img":"https://s.cdpn.io/3/large-NutroNaturalChoiceAdultLambMealandRiceDryDogFood.png","price":45.99});
+
+features.push({"item":"000000","description":"flower type a - red","img":"http://i40.tinypic.com/v42hcm.jpg","price":12.99});
+features.push({"item":"000001","description":"flower type b - blue","img":"http://i40.tinypic.com/v42hcm.jpg", "price":45.99});
+features.push({"item":"000003","description":"flower type c = blue","img":"http://i40.tinypic.com/v42hcm.jpg", "price":100.99});
+features.push({"item":"000004","description":"funk music","img":"http://i41.tinypic.com/210geig.jpg","price":70});
+features.push({"item":"000005","description":"blues music","img":"http://i41.tinypic.com/210geig.jpg", "price":12});
+features.push({"item":"000006","description":"pop music","img":"http://i41.tinypic.com/210geig.jpg", "price":33});
 
 
 /* Assign actions */

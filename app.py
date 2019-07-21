@@ -7,7 +7,7 @@ from db_helper import *
 app = Flask(__name__, static_path='/static')
 app.secret_key = 'cs348'
 
-username = ""
+username = "gab"
 
 eventType = {"1" : "birthday",
              "2" : "wedding",
@@ -37,6 +37,11 @@ def shoppingcart():
         return render_template('shoppingcart.html', product=product)
     else:
         # print(request.args)
+        try:
+            add= request.json['p1']
+            print("add product " + str(add))
+        except:
+            pass
         try:
             price = request.json['price']
             print(price)
