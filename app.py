@@ -1,7 +1,8 @@
 from flask import Flask
 from flask import render_template, Flask, flash, request, redirect, url_for, Response, session, abort, jsonify, send_file
 import json
-import dbConnect
+#import dbConnect
+from db_helper import *
 
 app = Flask(__name__, static_path='/static')
 app.secret_key = 'cs348'
@@ -19,16 +20,16 @@ def createOrder():
     global price
     if request.method == 'GET':
         return render_template('select.html', product=product)
-    else:
-        if not price == 0:
-            return redirect(url_for('orderInfo'))
-        p = request.get_data()
-        if not p == 0:
-            price = p[6:]
-        else:
-            price = p
-        print(price)
-        return redirect(url_for('orderInfo'))
+    # else:
+    #     if not price == 0:
+    #         return redirect(url_for('orderInfo'))
+    #     p = request.get_data()
+    #     if not p == 0:
+    #         price = p[6:]
+    #     else:
+    #         price = p
+    #     print(price)
+    #     return redirect(url_for('orderInfo'))
 
 @app.route('/orderInfo', methods = ['GET', 'POST'])
 def orderInfo():
@@ -36,7 +37,27 @@ def orderInfo():
     price = float(price)
     print(price)
     if request.method == 'GET':
-        return "hello"
+        return render_template('orderInfo.html')
+    else:
+        invittes = request.form['invittes']
+        starttime = request.form['starttime']
+        closetime = request.form['closetime']
+        budgets = request.form['budgets']
+        deliverytime = request.form['deliverytime']
+        customization = request.form['customization']
+        if invittes == "" or starttime == "" or closetime == "" or budgets == "" or deliverytime == "":
+            flash("Error! Fields cannot be blank")
+            return render_template('orderInfo.html')
+        #save into dbConnect
+        return redirect(url_for('payment'))
+
+@app.route('/payment', methods = ['GET', 'POST'])
+def payment():
+    if request.method == 'GET':
+        return render_template('payment.html')
+    else:
+        option = request.form['options'] #get payment type
+
 
 @app.route('/searchOrder', methods = ['GET', 'POST'])
 def searchOrder():
@@ -68,7 +89,8 @@ def signup():
             flash("Error! You password must be at least 6 digits")
             return render_template('signup.html')
         if password == password2:
-            #add account into sql
+            value = (name,password,firstname,lastname,phone,email,address,postalcode)
+            insert_db("Customer", schema_customer, value) #insert data
             return redirect(url_for('userDashboard'))
         else:
             flash("Error! You password inputs do not match.")

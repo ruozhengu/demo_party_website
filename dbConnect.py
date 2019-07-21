@@ -121,14 +121,11 @@ except:
 try:
     cursor.execute("create table Menu( \
                 Product_ID char(6) Not NULL , \
-                Supplier_ID char(6) unique Not NULL, \
-                Transaction char(6), \
                 Description Varchar(255), \
                 Price Decimal(8,2), \
                 Constraint Price_check2 check(Price >= 0),\
                 Quantity int not null, \
-                Constraint Quantity_check2 check(Quantity >= 0), \
-                foreign key(Supplier_ID) references Supply_Record(Supplier_ID))")
+                Constraint Quantity_check2 check(Quantity >= 0))")
     print("Menu table is created.")
 except:
     print("Menu table exists.")

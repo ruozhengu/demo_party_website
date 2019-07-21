@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Fill in Form</title>
+
+
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+
+      <link rel="stylesheet" href="../static/orderInfostyle.css">
+
+
+</head>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  <script>
+    var messages = {{ messages | safe }};
+    for (var i=0; i<messages.length; i++) {
+      if (i==messages.length-1){
+        alert(messages[i]);
+      }
+      break;
+    }
+  </script>
+{% endif %}
+{% endwith %}
+
+<body>
+  <form action="" method="post">
+
+  <h1>Complete Your Order</h1>
+
+<hr>
+
+<form action="javascript:void(0)" class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <p class="lead">After information is verified, you may have a chance such that the order is being rejected due to stock or other reasons. Please contact our specialists for details and the payment will be reversed in 1-3 business days.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <p>For this demo, you may populate the fields with fake customer information.</p>
+      <button class="btn btn-warning" id="autofill">Autofill Customer Information</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12" >
+      <div class="form-group">
+        <label for="invittes">Number of Invittes</label>
+        <input type="invittes" class="form-control" id="invittes" name="invittes" placeholder="exampel: 100">
+        <span id="help-invittes" class="help-block"></span>
+      </div>
+      <div class="form-group">
+        <label for="starttime">Party Start Time</label>
+        <input type="starttime" class="form-control" id="starttime" name="starttime" placeholder="Jan 19th, 9:00 am">
+        <span id="help-starttime" class="help-block"></span>
+      </div>
+      <div class="form-group">
+        <label for="closetime">Party Close Time</label>
+        <input type="closetime" class="form-control" id="closetime" name="closetime" placeholder="Jan 19th 6:00 pm">
+        <span id="help-closetime" class="help-block"></span>
+      </div>
+      <div class="form-group">
+        <label for="budgets">Budgets</label>
+        <input type="budgets" class="form-control" id="budgets" name="budgets" placeholder="2000 dollars">
+        <span id="help-budgets" class="help-block"></span>
+      </div>
+      <div class="form-group">
+        <label for="deliverytime">Delivery Time</label>
+        <input type="deliverytime" class="form-control" id="deliverytime" name="deliverytime" placeholder="Jan 19th 12:01 pm">
+        <span id="help-deliverytime" class="help-block"></span>
+      </div>
+      <div class="form-group">
+        <label for="customization">Customization Needs</label>
+        <input type="customization" class="form-control" id="customization" name="customization" placeholder="Write anything you like...">
+        <span id="help-customization" class="help-block"></span>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+      <input type="submit" class="btn btn-success" type="submit" value="Next">
+   </div>
+</form>
+
+
+
+    <script  src="../static/orderInfoscript.js"></script>
+
+
+
+</form>
+</body>
+
+</html>
