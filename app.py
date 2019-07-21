@@ -7,6 +7,13 @@ from db_helper import *
 app = Flask(__name__, static_path='/static')
 app.secret_key = 'cs348'
 
+username = ""
+
+eventType = {"1" : "birthday",
+             "2" : "wedding",
+             "3" : "professional",
+             "4" : "other"}
+
 product = {
     "Flower A" : 12.99, "Flower B" : 12.99, "Flower C" : 11, "Flower D" : 10, "Flower 11" : 12,
     "Decor A" : 89.99, "Decor B" : 78, "Decor C" : 100, "Decor D" : 9, "Free Stuff" : 0
@@ -19,25 +26,48 @@ def createOrder():
     global product
     global price
     if request.method == 'GET':
-        return render_template('select.html', product=product)
-    # else:
-    #     if not price == 0:
-    #         return redirect(url_for('orderInfo'))
-    #     p = request.get_data()
-    #     if not p == 0:
-    #         price = p[6:]
-    #     else:
-    #         price = p
-    #     print(price)
-    #     return redirect(url_for('orderInfo'))
+        return redirect(url_for('userlogin'))
+
+
+@app.route('/shoppingcart', methods = ['GET', 'POST'])
+def shoppingcart():
+    global product
+    global price
+    if request.method == 'GET':
+        return render_template('shoppingcart.html', product=product)
+    else:
+        # print(request.args)
+        try:
+            price = request.json['price']
+            print(price)
+        except:
+            print(price)
+
+        # p = request.args.get('teamData')
+        # print(p)
+        # print("post request")
+        # if not price == 0:
+        #     return redirect(url_for('orderInfo'))
+        # p = request.get_data()
+        # if not p == 0:
+        #     price = p[6:]
+        # else:
+        #     price = p
+        # print(price)
+        return redirect(url_for('orderInfo'))
 
 @app.route('/orderInfo', methods = ['GET', 'POST'])
 def orderInfo():
     global price
-    price = float(price)
-    print(price)
+    global eventType
+    global username
+
+    venues = selectAll_db("Venue", "Venue_id, Location")
+    v = {}
+    for record in venues:
+        v[record[0]] = record[1]
     if request.method == 'GET':
-        return render_template('orderInfo.html')
+        return render_template('orderInfo.html', venue=v, type=eventType)
     else:
         invittes = request.form['invittes']
         starttime = request.form['starttime']
@@ -45,31 +75,67 @@ def orderInfo():
         budgets = request.form['budgets']
         deliverytime = request.form['deliverytime']
         customization = request.form['customization']
-        if invittes == "" or starttime == "" or closetime == "" or budgets == "" or deliverytime == "":
+        venueoption = request.form['venueoption']
+        billing = request.form['Billing']
+        type = request.form['type']
+        if billing == "" or invittes == "" or starttime == "" or closetime == "" or budgets == "" or deliverytime == "":
             flash("Error! Fields cannot be blank")
-            return render_template('orderInfo.html')
+            return render_template('orderInfo.html', venue=v, type=eventType)
         #save into dbConnect
-        return redirect(url_for('payment'))
+        pk_id = generate_id("Event", "Event_id")
+        value = (pk_id,float(budgets),invittes,int(type),starttime,closetime, \
+                    v[venueoption], customization, deliverytime, username, venueoption)
+        try:
+            insert_db("Event", schema_event, value) #insert data
+            print(value)
+        except:
+            print(value)
+            insert_db("Event", schema_event, value) #insert data
 
-@app.route('/payment', methods = ['GET', 'POST'])
-def payment():
+            flash("Internal error occurs, please try again.")
+            return render_template('orderInfo.html', venue=v, type=eventType)
+        return redirect(url_for('payment', pk_id=pk_id, billing=billing))
+
+@app.route('/payment/<pk_id>/<billing>', methods = ['GET', 'POST'])
+def payment(pk_id, billing):
+    global username
     if request.method == 'GET':
         return render_template('payment.html')
     else:
-        option = request.form['options'] #get payment type
+        Paidtype = request.form['options'] #get payment type
+        iscomplete = 0
+        Cardtype = Paidtype
+        isPaid = 0
 
+
+@app.route('/userlogin', methods = ['GET', 'POST'])
+def userlogin():
+    global username
+    if request.method == 'GET':
+        return render_template('login2.html')
+    else:
+        name = request.form['username']
+        password = request.form['password']
+        record = select_db("Customer", "UserId='" + name + "' and Password = '" + password +"'")
+        if record == []:
+            flash("Error, incorrect username or password")
+            return redirect(url_for('userlogin'))
+        username = name
+        return redirect(url_for('shoppingcart'))
 
 @app.route('/searchOrder', methods = ['GET', 'POST'])
 def searchOrder():
+    global username
     if request.method == 'GET':
         return render_template('login.html')
     else:
         name = request.form['username']
         password = request.form['password']
-        record = select_db("Customer", "Userid='" + name + "' and password = '" + password +"'")
+        record = select_db("Customer", "UserId='" + name + "' and Password = '" + password +"'")
         if record == []:
             flash("Error, incorrect username or password")
             return redirect(url_for('searchOrder'))
+        username = name
         return redirect(url_for('userDashboard'))
 
 @app.route('/signup', methods = ['GET', 'POST'])
@@ -97,7 +163,7 @@ def signup():
         if password == password2:
             value = (name,password,firstname,lastname,phone,email,address,postalcode)
             insert_db("Customer", schema_customer, value) #insert data
-            return redirect(url_for('userDashboard'))
+            return redirect(url_for('dashboard'))
         else:
             flash("Error! You password inputs do not match.")
             return render_template('signup.html')

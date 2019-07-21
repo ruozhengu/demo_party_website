@@ -42,12 +42,9 @@ schema_event = "INSERT INTO  perfect_party.Event (Event_id , \
                     Location , \
                     Customization , \
                     Delivery_time , \
-                    Product_ID , \
-                    Supplier_ID , \
-                    Transaction , \
                     UserId , \
                     Venue_id ) VALUES \
-                    (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                    (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
 def insert_db(table, schema, value):
     """
@@ -66,6 +63,18 @@ def select_db(table, cond):
 
     """
     query = "SELECT * FROM " + table + " WHERE " + cond
+    cursor.execute(query)
+    records = cursor.fetchall()
+    return records
+
+def selectAll_db(table, name="*"):
+    """
+        Select all columns from table
+        Args: all strings
+        Return: records are list of tuples
+
+    """
+    query = "SELECT " + name + " FROM " + table
     cursor.execute(query)
     records = cursor.fetchall()
     return records
@@ -90,3 +99,20 @@ def update_db(table, set, wherecond):
     cursor.execute(schema, value)
     db.commit()
     print(cursor.rowcount, "record updated in db: " + table)
+
+def generate_id(table, pk):
+    """
+        Generate unique Id for table
+        Args: table and pk are strings where pk means primary key name
+        Return: string
+    """
+    query = "SELECT " + pk + " FROM " + table
+    cursor.execute(query)
+    records = cursor.fetchall()
+    if records == []:
+        return "000000"
+    pks = [x[0] for x in records]
+    print(pks)
+    pks.sort(key=int)
+    max_add1 = str(int(pks[-1]) + 1)
+    return max_add1.rjust(6, '0')

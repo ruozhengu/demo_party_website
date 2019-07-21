@@ -14,7 +14,6 @@
 </head>
 
 <body>
-<form action="" method="post">
   <h1>Shop Your Party</h1></br>
 
 <div class="shopping-cart">
@@ -26,16 +25,15 @@
     <label class="product-quantity">Quantity</label>
     <label class="product-line-price">Total</label>
   </div>
-  {% for k, v in product.items() %}
   <div class="product">
     <div class="product-image">
       <img style="height:50%;width:30%" src="http://i42.tinypic.com/hs0vmw.jpg">
     </div>
     <div class="product-details">
-      <div class="product-title">{{k}}</div>
+      <div class="product-title">"abc"</div>
       <p class="product-description">The Best Product of All Time</p>
     </div>
-    <div class="product-price">{{v}}</div>
+    <div class="product-price">100</div>
     <div class="product-quantity">
       <input type="number" value="0" min="0">
     </div>
@@ -43,7 +41,6 @@
 
     <div class="product-line-price">0</div>
   </div>
-  {% endfor %}
 
 
 
@@ -57,12 +54,12 @@
       <div class="totals-value" id="cart-tax">0</div>
     </div>
     <div class="totals-item">
-      <label>Service Fee</label>
-      <div class="totals-value" id="cart-shipping">15</div>
+      <label>Service Fee:</label>
+      <div class="totals-value" id="cart-shipping">0</div>
     </div>
     <div class="totals-item totals-item-total">
       <label>Grand Total</label>
-      <div class="totals-value" id="cart-total">15</div>
+      <div class="totals-value" id="cart-total">0</div>
     </div>
   </div>
 
@@ -77,7 +74,6 @@
 
 
 
-</form>
 
 </body>
 

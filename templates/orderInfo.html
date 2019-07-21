@@ -50,52 +50,70 @@
     <div class="col-xs-12" >
       <div class="form-group">
         <label for="invittes">Number of Invittes</label>
-        <input type="invittes" class="form-control" id="invittes" name="invittes" placeholder="exampel: 100">
-        <span id="help-invittes" class="help-block"></span>
+        <input type="invittes" id = "invittes" class="form-control" id="invittes" name="invittes" value="100" default>
       </div>
       <div class="form-group">
         <label for="starttime">Party Start Time</label>
-        <input type="starttime" class="form-control" id="starttime" name="starttime" placeholder="Jan 19th, 9:00 am">
-        <span id="help-starttime" class="help-block"></span>
+        <input type="starttime" class="form-control" id="starttime" name="starttime" value='2019-01-01 00:00:01' default>
       </div>
       <div class="form-group">
         <label for="closetime">Party Close Time</label>
-        <input type="closetime" class="form-control" id="closetime" name="closetime" placeholder="Jan 19th 6:00 pm">
-        <span id="help-closetime" class="help-block"></span>
+        <input type="closetime" class="form-control" id="closetime" name="closetime" value='2019-01-01 10:00:01' default>
       </div>
       <div class="form-group">
         <label for="budgets">Budgets</label>
-        <input type="budgets" class="form-control" id="budgets" name="budgets" placeholder="2000 dollars">
-        <span id="help-budgets" class="help-block"></span>
+        <input type="budgets" class="form-control" id="budgets" name="budgets" value="2000.00" default>
       </div>
       <div class="form-group">
         <label for="deliverytime">Delivery Time</label>
-        <input type="deliverytime" class="form-control" id="deliverytime" name="deliverytime" placeholder="Jan 19th 12:01 pm">
-        <span id="help-deliverytime" class="help-block"></span>
+        <input type="deliverytime" class="form-control" id="deliverytime" name="deliverytime" value='08:00:00' default>
+      </div>
+      <div class="form-group">
+        <label for="Billing">Billing address</label>
+        <input type="Billing" class="form-control" id="Billing" name="Billing" value='315 ABC st' default>
       </div>
       <div class="form-group">
         <label for="customization">Customization Needs</label>
-        <input type="customization" class="form-control" id="customization" name="customization" placeholder="Write anything you like...">
-        <span id="help-customization" class="help-block"></span>
+        <input type="customization" class="form-control" id="customization" name="customization" value="Write anything you like..." default>
       </div>
+      <form>
+    <p><b> Select Venue Location </b>(retrieved from venue database)</p>
+    {% for k, v in venue.items() %}
+    <label class="radio-inline">
+      <input type="radio" name="venueoption" value="{{k}}" checked>{{v}}
+    </label>
 
-    </div>
+    {% endfor %}
+
+  </form></br></br>
+  <p><b> Select Event Type </b></p>
+  {% for t1, t2 in type.items() %}
+  <label class="radio-inline">
+    <input type="radio" name="type" value="{{t1}}" checked>{{t2}}
+  </label>
+
+  {% endfor %}
+
+</form>
+
+
   </div>
 
 
 
 
-      <input type="submit" class="btn btn-success" type="submit" value="Next">
+  <input style="position: absolute;top:107%;left:13%" type="submit" class="btn btn-success" value="Next">
    </div>
 </form>
 
 
 
-    <script  src="../static/orderInfoscript.js"></script>
+    <script src="../static/orderInfoscript.js"></script>
 
 
 
 </form>
 </body>
+
 
 </html>

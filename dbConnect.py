@@ -141,9 +141,6 @@ try:
                     Location varchar(255), \
                     Customization varchar(255), \
                     Delivery_time TIME NOT NULL , \
-                    Product_ID char(6) not null, \
-                    Supplier_ID char(6) unique, \
-                    Transaction Varchar(255), \
                     UserId char(6) not null, \
                     Venue_id char(6) not null, \
                     foreign key (Venue_id) references Venue(Venue_id), \
