@@ -28,7 +28,7 @@ function addProduct(id){
 //   addtoCart(features[parseInt($('#addSelect').val())]);
 // });
 function addtoCart(feature){
-  $('.column-labels').after('<div class="product"><div class="product-image"><img src="'+feature.img+'"></div><div class="product-details"><div class="product-title">'+feature.item+'</div><p class="product-description">'+feature.description+'</p></div><div class="product-price">'+feature.price+'</div><div class="product-quantity"><input type="number" value="1" min="1"></div><div class="product-removal"><button class="remove-product">Remove</button></div><div class="product-line-price">'+feature.price+'</div></div>');
+  $('.column-labels').after('<div class="product"><div class="product-image"><img src="'+feature.img+'"></div><div class="product-details"><div class="product-title">'+feature.item+'</div><p class="product-description">'+feature.description+'</p></div><div class="product-price">'+feature.price+'</div><div class="product-quantity"><input type="number" value="1" min="1" max="1"></div><div class="product-line-price">'+feature.price+'</div></div>');
   $('.product-removal button').unbind();
   $('.product-quantity button').unbind();
   $('.product-removal button').click( function() {

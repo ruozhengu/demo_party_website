@@ -8,16 +8,13 @@ app = Flask(__name__, static_path='/static')
 app.secret_key = 'cs348'
 
 username = "gab"
-
+product = ""
 eventType = {"1" : "birthday",
              "2" : "wedding",
              "3" : "professional",
              "4" : "other"}
-
-product = {
-    "Flower A" : 12.99, "Flower B" : 12.99, "Flower C" : 11, "Flower D" : 10, "Flower 11" : 12,
-    "Decor A" : 89.99, "Decor B" : 78, "Decor C" : 100, "Decor D" : 9, "Free Stuff" : 0
-}
+product_price = {"000000":12.99,"000001":45.99,"000003":100.99,"000004":70, "000005":12,"000006":33}
+paytype = {"visa" : 1, "master":2, "amex":3,"vishwa":4, "cash":5}
 
 price = 0
 
@@ -33,32 +30,27 @@ def createOrder():
 def shoppingcart():
     global product
     global price
+    global product_price
     if request.method == 'GET':
-        return render_template('shoppingcart.html', product=product)
+        return render_template('shoppingcart.html')
     else:
-        # print(request.args)
         try:
-            add= request.json['p1']
-            print("add product " + str(add))
+            add = request.json
         except:
             pass
         try:
-            price = request.json['price']
-            print(price)
+            add.items()
         except:
-            print(price)
-
-        # p = request.args.get('teamData')
-        # print(p)
-        # print("post request")
-        # if not price == 0:
-        #     return redirect(url_for('orderInfo'))
-        # p = request.get_data()
-        # if not p == 0:
-        #     price = p[6:]
-        # else:
-        #     price = p
-        # print(price)
+            return redirect(url_for('orderInfo'))
+        s = ""
+        p = 0
+        for k,v in add.items():
+            s += str(k) + "-" + str(v) + " "
+            p = p + product_price[k] * v
+        product = s
+        price = p #excluding shipping and tax
+        print(product)
+        print(price)
         return redirect(url_for('orderInfo'))
 
 @app.route('/orderInfo', methods = ['GET', 'POST'])
@@ -66,6 +58,7 @@ def orderInfo():
     global price
     global eventType
     global username
+    global product
 
     venues = selectAll_db("Venue", "Venue_id, Location")
     v = {}
@@ -104,13 +97,30 @@ def orderInfo():
 @app.route('/payment/<pk_id>/<billing>', methods = ['GET', 'POST'])
 def payment(pk_id, billing):
     global username
+    global price
+    global product
+    global paytype
+    print("information recorded: ")
+    print(product)
+    print(price)
     if request.method == 'GET':
         return render_template('payment.html')
     else:
-        Paidtype = request.form['options'] #get payment type
+        paidtype = request.form['options'] #get payment type
+        paidtype = paytype[paidtype]
         iscomplete = 0
-        Cardtype = Paidtype
+        cardtype = paidtype
         isPaid = 0
+        price = int(price * 1.13 + 15)
+        order_number = generate_id("OrderInfo","Order_number")
+        value = (billing, iscomplete, product, price, isPaid, paidtype, order_number, cardtype, pk_id, username)
+        insert_db("OrderInfo", schema_order, value) #insert data
+        print("Value inserted into order table")
+        return redirect(url_for('success'))
+
+@app.route('/success', methods = ['GET', 'POST'])
+def success():
+    return "Success"
 
 
 @app.route('/userlogin', methods = ['GET', 'POST'])

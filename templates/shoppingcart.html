@@ -156,7 +156,7 @@
       } else {
         count6 += 1
       }
-      data = {"p1":count1, "p2":count2, "p3":count3, "p4":count4, "p5":count5, "p6":count6}
+      data = {"000000":count1, "000001":count2, "000003":count3, "000004":count4, "000005":count5, "000006":count6}
       $.ajax({
           type : "POST",
           url : "{{ url_for('shoppingcart') }}",
@@ -168,6 +168,9 @@
       });
       addtoCart(features[id]);
     }
+
+
+
     </script>
 
 </body>
