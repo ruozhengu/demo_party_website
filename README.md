@@ -3,6 +3,7 @@
 ---
 
 Frontend: JQuery, Javascript, HTML, CSS
+
 Backend: Python, MySQL
 
 #### Features:
