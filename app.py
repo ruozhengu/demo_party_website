@@ -434,14 +434,14 @@ def adminDashboard():
 
         if "delete1submit" in request.form:
             orderNum = request.form['delete1submit']
-            delete_db("OrderInfo", "Order_number='" + str(orderNum) + "'")
+            delete_db("Event", "Event_id='" + str(orderNum) + "'")
         if "delete2submit" in request.form:
             orderNum = request.form['delete2submit']
-            delete_db("OrderInfo", "Order_number='" + str(orderNum) + "'")
+            delete_db("Event", "Event_id='" + str(orderNum) + "'")
         if "delete3submit" in request.form:
             orderNum = request.form['delete3submit']
-            delete_db("OrderInfo", "Order_number='" + str(orderNum) + "'")
-        
+            delete_db("Event", "Event_id='" + str(orderNum) + "'")
+
 
         return redirect(url_for('adminDashboard'))
 

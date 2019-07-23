@@ -85,7 +85,8 @@ def delete_db(table, cond):
         Args: all strings
     """
     query = "DELETE FROM " + table + " WHERE " + cond
-    cursor.execute(schema, value)
+    print(query)
+    cursor.execute(query)
     db.commit()
     print(cursor.rowcount, "record deleted from db: " + table)
 
