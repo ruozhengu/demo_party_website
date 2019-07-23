@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+
+
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+      <link rel="stylesheet" href="../static/adminDashboardstyle.css">
+
+
+</head>
+
+<body>
+  <form action="" method="post">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+<div class="container">
+
+  <h3>Customer Information Manager</h3>
+
+  <!-- Search campaign order#, agent ID, agent name, agent email, date purchased, status, assignee name, assigned to name -->
+  <div class="row search-campaigns">
+    <div class="col-sm-6">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="search by customer username">
+        <span class="input-group-btn">
+          <button class="btn btn-default btn-search" type="button" title="Clear search"><i class="fa fa-search" aria-hidden="true"></i></button>
+          <a href="#" class="btn btn-default btn-search" title="Export" style="margin-left: 4px; border: 1px solid #ccc; color:#555; background:#ededed;" data-toggle="modal" data-target="#export-report">
+                  <i class="fa fa-download" aria-hidden="true"></i>
+                </a>
+        </span>
+      </div>
+    </div>
+    <div class="col-sm-4 col-sm-push-2 notify-text">
+
+      Hi admin, you have <a href="#" class="new-notify dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><font color='red'><strong>{{count_active}}</strong> active orders currently.</font></a>
+
+    </div>
+
+  </div>
+  <ul class="nav nav-tabs depts">
+    <li class="active"><a data-toggle="tab" href="#home"> Active <span class="badge">{{count_active}}</span></a></li>
+    <li><a data-toggle="tab" href="#menu1"> Completed <span class="badge">{{count_complete}}</span></a></li>
+<!--     <li><a data-toggle="tab" href="#menu2"> Design <span class="badge">5</span> </a></li> -->
+    <li><a data-toggle="tab" href="#menu2"> Cancelled <span class="badge">{{count_cancel}}</span> </a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+
+
+
+  <!-- copy code from here -->
+  <div class="row results-filter">
+    <div class="col-md-2 col-xs-12 results">
+      <span>Search Results {{count_active}}</span>
+    </div>
+  </div>
+  <!-- end of code here -->
+{% for k, v in active.items() %}
+  <div class="campaign-container">
+
+    <div class="row campaign-box">
+
+    <div class="col-sm-1 img-preview" id="drilldown-trigger" title="See More Info">
+  <!--           <img class='round-avatar' src='http://cdn-cms.pgimgs.com/static/2015/09/real-estate-agent-headshot.jpg'> -->
+      <div class="avatar"></div>
+    </div>
+
+    <div class="col-sm-11 campaign-details">
+
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="block-info">
+              <div><em>Name:&nbsp;&nbsp;</em><span>{{v.name}}</span></div>
+              <div><em>Password:&nbsp;&nbsp;</em><span>{{v.password}}</span></div>
+              <div><em>Event Type:&nbsp;&nbsp;</em><span>{{v.eventtype}}</span></div>
+              <div><em>Name:&nbsp;&nbsp;</em><span>{{v.name}}</span></div>
+              <div><em>Phone:&nbsp;&nbsp;</em><span>{{v.phone}}</span></div>
+              <div><em>Email:&nbsp;&nbsp;</em><span>{{v.email}}</span></div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="block-info">
+              <div><em>Budget:&nbsp;&nbsp;</em><span>{{v.budget}}</span></div>
+              <div><em>Pay Type:&nbsp;&nbsp;</em><span>{{v.paid}}</span></div>
+              <div><em>Order:&nbsp;&nbsp;</em><span><a href="#" data-toggle="modal" data-target="#reassign-salesop">click me</a></span></div>
+              <!-- Modal 'ASSIGN TO DESIGNER' -->
+              <div class="modal fade" id="reassign-salesop" role="dialog">
+                <div class="modal-dialog">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Customer Order Details</h4>
+                    </div>
+                    <div class="modal-body">
+
+                    <b>{{v.order}}</b>
+
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+
+
+
+              <div><em>Customization:&nbsp;&nbsp;</em><span><a href="#" data-toggle="modal" data-target="#customize">details</a></span></div>
+              <div class="modal fade" id="customize" role="dialog">
+                <div class="modal-dialog">
+
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Customization details</h4>
+                    </div>
+                    <div class="modal-body">
+
+                    <b>{{v.customization}}</b>
+
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div><em>Location:&nbsp;&nbsp;</em><span>{{v.location}}</span></div>
+              <div><em>Capacity:&nbsp;&nbsp;</em><span>{{v.capacity}}</span></div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <div class="block-info">
+              <div><em>Start_Time:&nbsp;&nbsp;</em><span>{{v.opentime}}</span></div>
+              <div><em>Close_Time:&nbsp;&nbsp;</em><span>{{v.closetime}}</span></div>
+              <div><em>Paid Amount:</em><span>${{v.paidamount}}</span></div>
+            </div>
+           </div>
+          <div class="col-sm-2">
+            <div class="block-info">
+              <div><em>Billing Addr:&nbsp;&nbsp;</em><span>{{v.billingaddr}}</span></div>
+              <div><em>Addr:&nbsp;&nbsp;</em><span>{{v.addr}}</span></div>
+<!--               <div><em>ETA</em><span>2/20/18 (+ 2 days)</span></div> -->
+            </div>
+          </div>
+          <div class="col-sm-2 text-center">
+<!--             <button class="btn btn-alert">Create Order</button> -->
+            <div class="dropdown">
+              <button class="dropbtn"><i class="fa fa-cog" aria-hidden="true"></i> Manage <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+              <div class="dropdown-content">
+                <a href="#" data-toggle="modal" data-target="#edit1"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Event Table</a>
+
+                <a href="#" data-toggle="modal" data-target="#edit2"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Order Table</a>
+                <a href="#" data-toggle="modal" data-target="#edit3"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Customer Table</a>
+                <a href="#" data-toggle="modal" data-target="#delete1"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Delete</a>
+              </div>
+            </div>
+            <div class="modal fade" id="edit1" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change Information</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label class="control-label col-sm-3 col-sm-push-1" for="email">What to change:</label>
+                  <div class="col-sm-6 col-sm-push-1">
+                     <div class="form-group" style="margin-bottom:0;">
+                    <select  id="mymultiselect" name="options1" class="form-control" style="border-radius:0; margin-left:15px; width:90%;">
+                      <option value="Budget">Budget</option>
+                      <option value="Event_Type">Event type</option>
+                      <option value="Customization">Customization</option>
+                      <option value="Capacity">Capacity</option>
+                      <option value="Party_open_time">Party open time</option>
+                      <option value="Party_close_time">Party close time</option>
+                      <option value="Delivery_time">Delivery time</option>
+                      <option value="Venue_id">Venue_id</option>
+
+                    </select>
+                  </div>
+                  </div>
+                  </div>
+                  </br></br></br></br>
+                  <div class="form-group">
+                    <label class="control-label col-sm-3 col-sm-push-1" for="email">Change to:</label>
+                    <div class="col-sm-6 col-sm-push-1">
+
+                      <div class="form-group" style="margin-bottom:0;">
+                    <input style="border-radius:5px; margin-left:15px; width:90%;" type="text" name="info1" class="form-control">
+                  </br></br>
+                  </div>
+                  </div>
+                  </div>
+                  </div></br></br></br></br>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" value="{{k}}" name="edit1submit" >Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+
+
+        <div class="modal fade" id="edit2" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change Information</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="control-label col-sm-3 col-sm-push-1" for="email">What to change:</label>
+              <div class="col-sm-6 col-sm-push-1">
+                 <div class="form-group" style="margin-bottom:0;">
+                <select  id="mymultiselect" name="options2" class="form-control" style="border-radius:0; margin-left:15px; width:90%;">
+
+
+                  <option value="Billingaddr">Billing address</option>
+                  <option value="Orderitem">Order items</option>
+                  <option value="Paidamount">Paid amount</option>
+                  <option value="Ispaid">Is paid</option>
+                  <option value="Iscomplete">Is complete</option>
+
+
+                </select>
+              </div>
+              </div>
+              </div>
+            </br></br></br></br>
+              <div class="form-group">
+                <label class="control-label col-sm-3 col-sm-push-1" for="email">Change to:</label>
+                <div class="col-sm-6 col-sm-push-1">
+
+                  <div class="form-group" style="margin-bottom:0;">
+                <input style="border-radius:5px; margin-left:15px; width:90%;" type="text" name="info2" class="form-control">
+              </br></br>
+              </div>
+              </div>
+              </div>
+              </div>
+              </br></br></br></br>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" value="{{v.orderNum}}" name="edit2submit" >Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+
+
+    <div class="modal fade" id="edit3" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Change Information</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="control-label col-sm-3 col-sm-push-1" for="email">What to change:</label>
+          <div class="col-sm-6 col-sm-push-1">
+             <div class="form-group" style="margin-bottom:0;">
+            <select  id="mymultiselect" name="options3" class="form-control" style="border-radius:0; margin-left:15px; width:90%;">
+
+              <option value="Cardtype">Card type</option>
+              <option value="Password">Password</option>
+              <option value="Email">Email</option>
+              <option value="Phone">Phone</option>
+              <option value="Address">Address</option>
+            </select>
+          </div>
+          </div>
+          </div>
+          </br></br></br>
+          <div class="form-group">
+            <label class="control-label col-sm-3 col-sm-push-1" for="email">Change to:</label>
+            <div class="col-sm-6 col-sm-push-1">
+
+              <div class="form-group" style="margin-bottom:0;">
+            <input style="border-radius:5px; margin-left:15px; width:90%;" type="text" name="info3" class="form-control">
+          </br></br>
+          </div>
+          </div>
+          </div>
+          </div>
+          </br></br></br></br>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" value="{{v.userid}}" name="edit3submit" >Submit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+        <div class="modal fade" id="delete1" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change Order Status</h4>
+              </div>
+              <div class="modal-body">
+                <p style="text-align:center">By clicking on the button, the order will be <font color='red'><b>permanently deleted</b></font> from table-Event</p>
+              </div>
+
+              <div class="modal-footer">
+                <button type="submit" name="delete1submit" class="btn btn-primary" >Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+
+
+
+
+      </div>
+    </div>
+
+
+    </div>
+  </div>
+
+      <div class="row campaign-status">
+        <div class="col-sm-12 status">
+          <em>Active:</em> <i class="material-icons yes">check_circle</i>
+          <em>Completed:</em> <i class="material-icons no">remove_circle</i>
+          <em>Cancelled</em> <i class="material-icons no">remove_circle</i>
+<!--           if invalid
+          <em>Billing:</em> <i class="material-icons invalid">error</i>
+          -->
+
+
+          <!-- projected ECD is 21 days from day of onboard creation -->
+          <em>Order#&nbsp;{{v.orderNum}}</em>
+          <em>Event#&nbsp;  {{k}}</em>
+          <em>UserId:&nbsp;{{v.userid}}</em>
+          <!-- First mailer is projected date which comes 2 weeks after the purchase/billed date
+          <em>First Mailer: 2/16/18</em> -->
+        </div>
+      </div></div>
+    {% endfor %}
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+    <div id="menu1" class="tab-pane fade">
+
+      <div class="row results-filter">
+        <div class="col-md-2 col-xs-12 results">
+          <span>Search Results {{count_complete}}</span>
+        </div>
+      </div>
+      <!-- end of code here -->
+    {% for k1, v1 in complete.items() %}
+      <div class="campaign-container">
+
+        <div class="row campaign-box">
+
+        <div class="col-sm-1 img-preview" id="drilldown-trigger" title="See More Info">
+      <!--           <img class='round-avatar' src='http://cdn-cms.pgimgs.com/static/2015/09/real-estate-agent-headshot.jpg'> -->
+          <div class="avatar"></div>
+        </div>
+
+        <div class="col-sm-11 campaign-details">
+
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="block-info">
+                  <div><em>Name:&nbsp;&nbsp;</em><span>{{v1.name}}</span></div>
+                  <div><em>Password:&nbsp;&nbsp;</em><span>{{v1.password}}</span></div>
+                  <div><em>Event Type:&nbsp;&nbsp;</em><span>{{v1.eventtype}}</span></div>
+                  <div><em>Name:&nbsp;&nbsp;</em><span>{{v1.name}}</span></div>
+                  <div><em>Phone:&nbsp;&nbsp;</em><span>{{v1.phone}}</span></div>
+                  <div><em>Email:&nbsp;&nbsp;</em><span>{{v1.email}}</span></div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="block-info">
+                  <div><em>Budget:&nbsp;&nbsp;</em><span>{{v1.budget}}</span></div>
+                  <div><em>Pay Type:&nbsp;&nbsp;</em><span>{{v1.paid}}</span></div>
+                  <div><em>Order:&nbsp;&nbsp;</em><span><a href="#" data-toggle="modal" data-target="#reassign-salesop">click me</a></span></div>
+                  <!-- Modal 'ASSIGN TO DESIGNER' -->
+                  <div class="modal fade" id="reassign-salesop" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Customer Order Details</h4>
+                        </div>
+                        <div class="modal-body">
+
+                        <b>{{v1.order}}</b>
+
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+
+
+
+                  <div><em>Customization:&nbsp;&nbsp;</em><span><a href="#" data-toggle="modal" data-target="#customize">details</a></span></div>
+                  <div class="modal fade" id="customize" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Customization details</h4>
+                        </div>
+                        <div class="modal-body">
+
+                        <b>{{v1.customization}}</b>
+
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div><em>Location:&nbsp;&nbsp;</em><span>{{v1.location}}</span></div>
+                  <div><em>Capacity:&nbsp;&nbsp;</em><span>{{v1.capacity}}</span></div>
+
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="block-info">
+                  <div><em>Start_Time:&nbsp;&nbsp;</em><span>{{v1.opentime}}</span></div>
+                  <div><em>Close_Time:&nbsp;&nbsp;</em><span>{{v1.closetime}}</span></div>
+                  <div><em>Paid Amount:</em><span>${{v1.paidamount}}</span></div>
+                </div>
+               </div>
+              <div class="col-sm-2">
+                <div class="block-info">
+                  <div><em>Billing Addr:&nbsp;&nbsp;</em><span>{{v1.billingaddr}}</span></div>
+                  <div><em>Addr:&nbsp;&nbsp;</em><span>{{v1.addr}}</span></div>
+    <!--               <div><em>ETA</em><span>2/20/18 (+ 2 days)</span></div> -->
+                </div>
+              </div>
+              <div class="col-sm-2 text-center">
+    <!--             <button class="btn btn-alert">Create Order</button> -->
+                <div class="dropdown">
+                  <button class="dropbtn"><i class="fa fa-cog" aria-hidden="true"></i> Manage <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+                  <div class="dropdown-content">
+                    <a href="#" data-toggle="modal" data-target="#edit4"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Event Table</a>
+
+                    <a href="#" data-toggle="modal" data-target="#edit5"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Order Table</a>
+                    <a href="#" data-toggle="modal" data-target="#edit6"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Customer Table</a>
+                    <a href="#" data-toggle="modal" data-target="#delete2"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Delete</a>
+                  </div>
+                </div>
+                <div class="modal fade" id="edit4" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Change Information</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label class="control-label col-sm-3 col-sm-push-1" for="email">What to change:</label>
+                      <div class="col-sm-6 col-sm-push-1">
+                         <div class="form-group" style="margin-bottom:0;">
+                        <select  id="mymultiselect" name="options4" class="form-control" style="border-radius:0; margin-left:15px; width:90%;">
+                          <option value="Budget">Budget</option>
+                          <option value="Event_Type">Event type</option>
+                          <option value="Customization">Customization</option>
+                          <option value="Capacity">Capacity</option>
+                          <option value="Party_open_time">Party open time</option>
+                          <option value="Party_close_time">Party close time</option>
+                          <option value="Delivery_time">Delivery time</option>
+                          <option value="Venue_id">Venue_id</option>
+
+                        </select>
+                      </div>
+                      </div>
+                      </div>
+                      </br></br></br></br>
+                      <div class="form-group">
+                        <label class="control-label col-sm-3 col-sm-push-1" for="email">Change to:</label>
+                        <div class="col-sm-6 col-sm-push-1">
+
+                          <div class="form-group" style="margin-bottom:0;">
+                        <input style="border-radius:5px; margin-left:15px; width:90%;" type="text" name="info4" class="form-control">
+                      </br></br>
+                      </div>
+                      </div>
+                      </div>
+                      </div></br></br></br></br>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" value="{{k1}}" name="edit4submit" >Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+
+
+
+            <div class="modal fade" id="edit5" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change Information</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label class="control-label col-sm-3 col-sm-push-1" for="email">What to change:</label>
+                  <div class="col-sm-6 col-sm-push-1">
+                     <div class="form-group" style="margin-bottom:0;">
+                    <select  id="mymultiselect" name="options5" class="form-control" style="border-radius:0; margin-left:15px; width:90%;">
+
+
+                      <option value="Billingaddr">Billing address</option>
+                      <option value="Orderitem">Order items</option>
+                      <option value="Paidamount">Paid amount</option>
+                      <option value="Ispaid">Is paid</option>
+                      <option value="Iscomplete">Is complete</option>
+
+
+                    </select>
+                  </div>
+                  </div>
+                  </div>
+                </br></br></br></br>
+                  <div class="form-group">
+                    <label class="control-label col-sm-3 col-sm-push-1" for="email">Change to:</label>
+                    <div class="col-sm-6 col-sm-push-1">
+
+                      <div class="form-group" style="margin-bottom:0;">
+                    <input style="border-radius:5px; margin-left:15px; width:90%;" type="text" name="info5" class="form-control">
+                  </br></br>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </br></br></br></br>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" value="{{v1.orderNum}}" name="edit5submit" >Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+
+
+        <div class="modal fade" id="edit6" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change Information</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="control-label col-sm-3 col-sm-push-1" for="email">What to change:</label>
+              <div class="col-sm-6 col-sm-push-1">
+                 <div class="form-group" style="margin-bottom:0;">
+                <select  id="mymultiselect" name="options6" class="form-control" style="border-radius:0; margin-left:15px; width:90%;">
+
+                  <option value="Cardtype">Card type</option>
+                  <option value="Password">Password</option>
+                  <option value="Email">Email</option>
+                  <option value="Phone">Phone</option>
+                  <option value="Address">Address</option>
+                </select>
+              </div>
+              </div>
+              </div>
+              </br></br></br>
+              <div class="form-group">
+                <label class="control-label col-sm-3 col-sm-push-1" for="email">Change to:</label>
+                <div class="col-sm-6 col-sm-push-1">
+
+                  <div class="form-group" style="margin-bottom:0;">
+                <input style="border-radius:5px; margin-left:15px; width:90%;" type="text" name="info6" class="form-control">
+              </br></br>
+              </div>
+              </div>
+              </div>
+              </div>
+              </br></br></br></br>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" value="{{v1.userid}}" name="edit6submit" >Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+            <div class="modal fade" id="delete2" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change Order Status</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p style="text-align:center">By clicking on the button, the order will be <font color='red'><b>permanently deleted</b></font> from table-Event</p>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="submit" name="delete2submit" class="btn btn-primary" value="{{k1}}">Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+
+
+
+
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+
+          <div class="row campaign-status">
+            <div class="col-sm-12 status">
+              <em>Active:</em> <i class="material-icons no">remove_circle</i>
+              <em>Completed:</em> <i class="material-icons yes">check_circle</i>
+              <em>Cancelled</em> <i class="material-icons no">remove_circle</i>
+    <!--           if invalid
+              <em>Billing:</em> <i class="material-icons invalid">error</i>
+              -->
+
+
+              <!-- projected ECD is 21 days from day of onboard creation -->
+              <em>Order#&nbsp;{{v1.orderNum}}</em>
+              <em>Event#&nbsp;  {{k1}}</em>
+              <em>UserId:&nbsp;{{v1.userid}}</em>
+              <!-- First mailer is projected date which comes 2 weeks after the purchase/billed date
+              <em>First Mailer: 2/16/18</em> -->
+            </div>
+          </div></div>
+            {% endfor %}
+          </div>
+
+
+    <div id="menu2" class="tab-pane fade">
+
+      <div class="row results-filter">
+        <div class="col-md-2 col-xs-12 results">
+          <span>Search Results {{count_cancel}}</span>
+        </div>
+      </div>
+      <!-- end of code here -->
+    {% for k2, v2 in cancelled.items() %}
+      <div class="campaign-container">
+
+        <div class="row campaign-box">
+
+        <div class="col-sm-1 img-preview" id="drilldown-trigger" title="See More Info">
+      <!--           <img class='round-avatar' src='http://cdn-cms.pgimgs.com/static/2015/09/real-estate-agent-headshot.jpg'> -->
+          <div class="avatar"></div>
+        </div>
+
+        <div class="col-sm-11 campaign-details">
+
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="block-info">
+                  <div><em>Name:&nbsp;&nbsp;</em><span>{{v2.name}}</span></div>
+                  <div><em>Password:&nbsp;&nbsp;</em><span>{{v2.password}}</span></div>
+                  <div><em>Event Type:&nbsp;&nbsp;</em><span>{{v2.eventtype}}</span></div>
+                  <div><em>Name:&nbsp;&nbsp;</em><span>{{v2.name}}</span></div>
+                  <div><em>Phone:&nbsp;&nbsp;</em><span>{{v2.phone}}</span></div>
+                  <div><em>Email:&nbsp;&nbsp;</em><span>{{v2.email}}</span></div>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="block-info">
+                  <div><em>Budget:&nbsp;&nbsp;</em><span>{{v2.budget}}</span></div>
+                  <div><em>Pay Type:&nbsp;&nbsp;</em><span>{{v2.paid}}</span></div>
+                  <div><em>Order:&nbsp;&nbsp;</em><span><a href="#" data-toggle="modal" data-target="#reassign-salesop">click me</a></span></div>
+                  <!-- Modal 'ASSIGN TO DESIGNER' -->
+                  <div class="modal fade" id="reassign-salesop" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Customer Order Details</h4>
+                        </div>
+                        <div class="modal-body">
+
+                        <b>{{v2.order}}</b>
+
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+
+
+
+                  <div><em>Customization:&nbsp;&nbsp;</em><span><a href="#" data-toggle="modal" data-target="#customize">details</a></span></div>
+                  <div class="modal fade" id="customize" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Customization details</h4>
+                        </div>
+                        <div class="modal-body">
+
+                        <b>{{v2.customization}}</b>
+
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div><em>Location:&nbsp;&nbsp;</em><span>{{v2.location}}</span></div>
+                  <div><em>Capacity:&nbsp;&nbsp;</em><span>{{v2.capacity}}</span></div>
+
+                </div>
+              </div>
+              <div class="col-sm-2">
+                <div class="block-info">
+                  <div><em>Start_Time:&nbsp;&nbsp;</em><span>{{v2.opentime}}</span></div>
+                  <div><em>Close_Time:&nbsp;&nbsp;</em><span>{{v2.closetime}}</span></div>
+                  <div><em>Paid Amount:</em><span>${{v2.paidamount}}</span></div>
+                </div>
+               </div>
+              <div class="col-sm-2">
+                <div class="block-info">
+                  <div><em>Billing Addr:&nbsp;&nbsp;</em><span>{{v2.billingaddr}}</span></div>
+                  <div><em>Addr:&nbsp;&nbsp;</em><span>{{v2.addr}}</span></div>
+    <!--               <div><em>ETA</em><span>2/20/18 (+ 2 days)</span></div> -->
+                </div>
+              </div>
+              <div class="col-sm-2 text-center">
+    <!--             <button class="btn btn-alert">Create Order</button> -->
+                <div class="dropdown">
+                  <button class="dropbtn"><i class="fa fa-cog" aria-hidden="true"></i> Manage <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+                  <div class="dropdown-content">
+                    <a href="#" data-toggle="modal" data-target="#edit7"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Event Table</a>
+
+                    <a href="#" data-toggle="modal" data-target="#edit8"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Order Table</a>
+                    <a href="#" data-toggle="modal" data-target="#edit9"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Customer Table</a>
+                    <a href="#" data-toggle="modal" data-target="#delete3"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Delete</a>
+                  </div>
+                </div>
+                <div class="modal fade" id="edit7" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Change Information</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label class="control-label col-sm-3 col-sm-push-1" for="email">What to change:</label>
+                      <div class="col-sm-6 col-sm-push-1">
+                         <div class="form-group" style="margin-bottom:0;">
+                        <select  id="mymultiselect" name="options7" class="form-control" style="border-radius:0; margin-left:15px; width:90%;">
+                          <option value="Budget">Budget</option>
+                          <option value="Event_Type">Event type</option>
+                          <option value="Customization">Customization</option>
+                          <option value="Capacity">Capacity</option>
+                          <option value="Party_open_time">Party open time</option>
+                          <option value="Party_close_time">Party close time</option>
+                          <option value="Delivery_time">Delivery time</option>
+                          <option value="Venue_id">Venue_id</option>
+
+                        </select>
+                      </div>
+                      </div>
+                      </div>
+                      </br></br></br></br>
+                      <div class="form-group">
+                        <label class="control-label col-sm-3 col-sm-push-1" for="email">Change to:</label>
+                        <div class="col-sm-6 col-sm-push-1">
+
+                          <div class="form-group" style="margin-bottom:0;">
+                        <input style="border-radius:5px; margin-left:15px; width:90%;" type="text" name="info7" class="form-control">
+                      </br></br>
+                      </div>
+                      </div>
+                      </div>
+                      </div></br></br></br></br>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" value="{{k2}}" name="edit7submit" >Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+
+
+
+            <div class="modal fade" id="edit8" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change Information</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-group">
+                      <label class="control-label col-sm-3 col-sm-push-1" for="email">What to change:</label>
+                  <div class="col-sm-6 col-sm-push-1">
+                     <div class="form-group" style="margin-bottom:0;">
+                    <select  id="mymultiselect" name="options8" class="form-control" style="border-radius:0; margin-left:15px; width:90%;">
+
+
+                      <option value="Billingaddr">Billing address</option>
+                      <option value="Orderitem">Order items</option>
+                      <option value="Paidamount">Paid amount</option>
+                      <option value="Ispaid">Is paid</option>
+                      <option value="Iscomplete">Is complete</option>
+
+
+                    </select>
+                  </div>
+                  </div>
+                  </div>
+                </br></br></br></br>
+                  <div class="form-group">
+                    <label class="control-label col-sm-3 col-sm-push-1" for="email">Change to:</label>
+                    <div class="col-sm-6 col-sm-push-1">
+
+                      <div class="form-group" style="margin-bottom:0;">
+                    <input style="border-radius:5px; margin-left:15px; width:90%;" type="text" name="info8" class="form-control">
+                  </br></br>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+                  </br></br></br></br>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" value="{{v2.orderNum}}" name="edit8submit" >Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+
+
+        <div class="modal fade" id="edit9" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Change Information</h4>
+              </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label class="control-label col-sm-3 col-sm-push-1" for="email">What to change:</label>
+              <div class="col-sm-6 col-sm-push-1">
+                 <div class="form-group" style="margin-bottom:0;">
+                <select  id="mymultiselect" name="options9" class="form-control" style="border-radius:0; margin-left:15px; width:90%;">
+
+                  <option value="Cardtype">Card type</option>
+                  <option value="Password">Password</option>
+                  <option value="Email">Email</option>
+                  <option value="Phone">Phone</option>
+                  <option value="Address">Address</option>
+                </select>
+              </div>
+              </div>
+              </div>
+              </br></br></br>
+              <div class="form-group">
+                <label class="control-label col-sm-3 col-sm-push-1" for="email">Change to:</label>
+                <div class="col-sm-6 col-sm-push-1">
+
+                  <div class="form-group" style="margin-bottom:0;">
+                <input style="border-radius:5px; margin-left:15px; width:90%;" type="text" name="info9" class="form-control">
+              </br></br>
+              </div>
+              </div>
+              </div>
+              </div>
+              </br></br></br></br>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" value="{{v2.userid}}" name="edit9submit" >Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+            <div class="modal fade" id="delete3" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Change Order Status</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p style="text-align:center">By clicking on the button, the order will be <font color='red'><b>permanently deleted</b></font> from table-Event</p>
+                  </div>
+
+                  <div class="modal-footer">
+                    <button type="submit" name="delete3submit" value="{{k2}}" class="btn btn-primary" >Submit</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  </div>
+                </div>
+
+
+
+
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+
+          <div class="row campaign-status">
+            <div class="col-sm-12 status">
+              <em>Active:</em> <i class="material-icons no">remove_circle</i>
+              <em>Completed:</em> <i class="material-icons no">remove_circle</i>
+              <em>Cancelled</em> <i class="material-icons yes">check_circle</i>
+    <!--           if invalid
+              <em>Billing:</em> <i class="material-icons invalid">error</i>
+              -->
+
+
+              <!-- projected ECD is 21 days from day of onboard creation -->
+              <em>Order#&nbsp;{{v2.orderNum}}</em>
+              <em>Event#&nbsp;  {{k2}}</em>
+              <em>UserId:&nbsp;{{v2.userid}}</em>
+              <!-- First mailer is projected date which comes 2 weeks after the purchase/billed date
+              <em>First Mailer: 2/16/18</em> -->
+            </div>
+          </div></div>
+            {% endfor %}
+          </div>
+
+
+    <div id="menu3" class="tab-pane fade">
+      <h3>Launched</h3>
+      <p>Campaigns that have had their <b>First AND Second mailer sent.</b></p>
+    </div>
+  </div>
+
+
+
+
+  <!-- Modal 'EXPORT REPORT' -->
+  <div class="modal fade" id="export-report" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Elite Campaigns <span class="forte">Report Export</span></h4>
+        </div>
+        <div class="modal-body">
+
+          <form action="#" class="form-horizontal" id="">
+            <input type="hidden" name="person_id" value="7908">
+
+            <div class="form-group">
+              <label class="control-label col-sm-3 col-sm-push-1" for="email">From:</label>
+              <div class="col-sm-6 col-sm-push-1">
+
+                <div class="form-group" style="margin-bottom:0;">
+                  <select class="form-control" id="" style="border-radius:0; margin-left:15px; width:90%;">
+                    <option>01/01/2019</option>
+                  </select>
+                 </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-3 col-sm-push-1" for="email">To:</label>
+              <div class="col-sm-6 col-sm-push-1">
+
+                <div class="form-group" style="margin-bottom:0;">
+                  <select class="form-control" id="" style="border-radius:0; margin-left:15px; width:90%;">
+                    <option>03/06/19</option>
+                  </select>
+                 </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-sm-3 col-sm-push-1" for="email">Exporting...</label>
+              <div class="col-sm-6 col-sm-push-1">
+
+                <div class="form-group" style="margin-bottom:0;">
+
+                  <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">70%</div>
+                  </div>
+
+                 </div>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" data-dismiss="modal">Export</button>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- end of 'export report' modal -->
+
+
+
+
+</div><!-- end of container -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+
+
+    <script  src="../static/adminDashboardscript.js"></script>
+
+
+
+</form>
+
+
+</body>
+
+</html>

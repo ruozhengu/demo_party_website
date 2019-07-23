@@ -45,7 +45,7 @@ def process_order_data(data):
         active order = 0,
         cancelled order = 2, completed = 1
     """
-    print(data)
+    #print(data)
     global eventType
     global paytype_reverse
     active = {}
@@ -69,13 +69,23 @@ def process_order_data(data):
         temp["paidamount"] = item[14]
         temp["paid"] = paytype_reverse[int(item[15])]
         temp["orderNum"] = item[17]
+        temp["userid"] = item[20]
+        try:
+            temp["password"] = item[22]
+            temp["name"] = item[23] + " " + item[24]
+            temp["phone"] = item[25]
+            temp["email"] = item[26]
+            temp["addr"] = item[27]
+            temp["postal"] = item[28]
+        except:
+            pass
         orderitem = item[13].split(" ")
         order =""
         for x in orderitem:
             if x == "":
                 break
             if int(x[x.find("-")+1:]) != 0:
-                s = lookup[x[:x.find("-")]] + ",qty:" + x[x.find("-")+1:] + " "
+                s = lookup[x[:x.find("-")]] + ": qty:" + x[x.find("-")+1:] + " "
                 order += s
         temp["order"] = order
         if int(temp["status"]) == 0:
@@ -88,9 +98,9 @@ def process_order_data(data):
             temp["status_en"] = "Cancelled"
             cancelled[id] = temp
 
-    print(active)
-    print(complete)
-    print(cancelled)
+    #print(active)
+    #print(complete)
+    #print(cancelled)
     return active, complete, cancelled #k v pairs
 
 
@@ -301,7 +311,139 @@ def admin():
 
 @app.route('/adminDashboard', methods = ['GET', 'POST'])
 def adminDashboard():
-    return "hi"
+    global username
+    active,complete,cancelled = process_order_data(join_customer_order_event())
+    count_active = len(active)
+    count_complete = len(complete)
+    count_cancel = len(cancelled)
+    if request.method == 'GET':
+        return render_template('adminDashboard.html', active=active, complete=complete, \
+                                cancelled=cancelled, count_cancel=count_cancel, \
+                                count_complete=count_complete, count_active=count_active)
+    else:
+        if "edit1submit" in request.form:
+            id = request.form['edit1submit']
+            target = request.form['info1']
+            select = request.form.get('options1')
+            try:
+                update_db("Event", str(select) + "='" + str(target) +"'", "Event_id='" + str(id) + "'")
+            except:
+                try:
+                    update_db("Event", str(select) + "=" + str(target), "Event_id='" + str(id) + "'")
+                except:
+                    flash("Error! update to table generates an error. Please provide correct syntax.")
+                    return redirect(url_for('adminDashboard'))
+        if "edit2submit" in request.form:
+            id = request.form['edit2submit']
+            target = request.form['info2']
+            select = request.form.get('options2')
+            try:
+                update_db("OrderInfo", str(select) + "='" + str(target) +"'", "Order_number='" + str(id) + "'")
+            except:
+                try:
+                    update_db("OrderInfo", str(select) + "=" + str(target), "Order_number='" + str(id) + "'")
+                except:
+                    flash("Error! update to table generates an error. Please provide correct syntax.")
+                    return redirect(url_for('adminDashboard'))
+        if "edit3submit" in request.form:
+            id = request.form['edit3submit']
+            target = request.form['info3']
+            select = request.form.get('options3')
+            try:
+                update_db("Customer", str(select) + "='" + str(target) +"'", "UserId='" + str(id) + "'")
+            except:
+                try:
+                    update_db("Customer", str(select) + "=" + str(target), "UserId='" + str(id) + "'")
+                except:
+                    flash("Error! update to table generates an error. Please provide correct syntax.")
+                    return redirect(url_for('adminDashboard'))
+        if "edit4submit" in request.form:
+            id = request.form['edit4submit']
+            target = request.form['info4']
+            select = request.form.get('options4')
+            try:
+                update_db("Event", str(select) + "='" + str(target) +"'", "Event_id='" + str(id) + "'")
+            except:
+                try:
+                    update_db("Event", str(select) + "=" + str(target), "Event_id='" + str(id) + "'")
+                except:
+                    flash("Error! update to table generates an error. Please provide correct syntax.")
+                    return redirect(url_for('adminDashboard'))
+        if "edit5submit" in request.form:
+            id = request.form['edit5submit']
+            target = request.form['info5']
+            select = request.form.get('options5')
+            try:
+                update_db("OrderInfo", str(select) + "='" + str(target) +"'", "Order_number='" + str(id) + "'")
+            except:
+                try:
+                    update_db("OrderInfo", str(select) + "=" + str(target), "Order_number='" + str(id) + "'")
+                except:
+                    flash("Error! update to table generates an error. Please provide correct syntax.")
+                    return redirect(url_for('adminDashboard'))
+        if "edit6submit" in request.form:
+            id = request.form['edit6submit']
+            target = request.form['info6']
+            select = request.form.get('options6')
+            try:
+                update_db("Customer", str(select) + "='" + str(target) +"'", "UserId='" + str(id) + "'")
+            except:
+                try:
+                    update_db("Customer", str(select) + "=" + str(target), "UserId='" + str(id) + "'")
+                except:
+                    flash("Error! update to table generates an error. Please provide correct syntax.")
+                    return redirect(url_for('adminDashboard'))
+
+        if "edit7submit" in request.form:
+            id = request.form['edit7submit']
+            target = request.form['info7']
+            select = request.form.get('options7')
+            try:
+                update_db("Event", str(select) + "='" + str(target) +"'", "Event_id='" + str(id) + "'")
+            except:
+                try:
+                    update_db("Event", str(select) + "=" + str(target), "Event_id='" + str(id) + "'")
+                except:
+                    flash("Error! update to table generates an error. Please provide correct syntax.")
+                    return redirect(url_for('adminDashboard'))
+        if "edit8submit" in request.form:
+            id = request.form['edit8submit']
+            target = request.form['info8']
+            select = request.form.get('options8')
+            try:
+                update_db("OrderInfo", str(select) + "='" + str(target) +"'", "Order_number='" + str(id) + "'")
+            except:
+                try:
+                    update_db("OrderInfo", str(select) + "=" + str(target), "Order_number='" + str(id) + "'")
+                except:
+                    flash("Error! update to table generates an error. Please provide correct syntax.")
+                    return redirect(url_for('adminDashboard'))
+        if "edit9submit" in request.form:
+            id = request.form['edit9submit']
+            target = request.form['info9']
+            select = request.form.get('options9')
+            try:
+                update_db("Customer", str(select) + "='" + str(target) +"'", "UserId='" + str(id) + "'")
+            except:
+                try:
+                    update_db("Customer", str(select) + "=" + str(target), "UserId='" + str(id) + "'")
+                except:
+                    flash("Error! update to table generates an error. Please provide correct syntax.")
+                    return redirect(url_for('adminDashboard'))
+
+
+        if "delete1submit" in request.form:
+            orderNum = request.form['delete1submit']
+            delete_db("OrderInfo", "Order_number='" + str(orderNum) + "'")
+        if "delete2submit" in request.form:
+            orderNum = request.form['delete2submit']
+            delete_db("OrderInfo", "Order_number='" + str(orderNum) + "'")
+        if "delete3submit" in request.form:
+            orderNum = request.form['delete3submit']
+            delete_db("OrderInfo", "Order_number='" + str(orderNum) + "'")
+        
+
+        return redirect(url_for('adminDashboard'))
 
 @app.route('/dashboard', methods = ['GET', 'POST'])
 def dashboard():

@@ -123,3 +123,9 @@ def join_Order_Event(userid):
     cursor.execute(query)
     records = cursor.fetchall()
     return records
+
+def join_customer_order_event():
+    query = "SELECT * FROM (perfect_party.Event as A inner join perfect_party.OrderInfo as B on A.Event_id=B.Event_id) inner join perfect_party.Customer  as C on C.UserId=A.UserId;"
+    cursor.execute(query)
+    records = cursor.fetchall()
+    return records
