@@ -15,3 +15,4 @@ Backend: Python, MySQL
 * Order search engine
 * Administration - modification of order/event/customer information
 * Order status update and push notifications
+* SQL database creation/update/deletion
