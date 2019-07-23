@@ -106,6 +106,7 @@
                     </br>
                     <table class="table table-bordered" name="table1" style="width:30%">
                         <tbody>
+                            <tr><td><b>Order Number</b></td><td>{{v.orderNum}} </td></tr>
                             <tr><td ><b>Budget</b></td><td >${{v.budget}}</td></tr>
                             <tr ><td><b>Capacity</b></td><td>{{v.capacity}} people</td></tr>
                             <tr><td><b>Event type</b></td><td>{{v.eventtype}}</td></tr>
@@ -126,8 +127,7 @@
                        </td>
                   <td style="width:30%"><div class="btn-group .btn-lg round" >
 
-                      <button type="submit" name="customize" value={{k}} class="btn .btn-lg btn-primary">Edit Customization</button>
-                      <button type="submit" name="cancel" value={{k}} class="btn .btn-lg btn-warning">Cancel</button>
+                    <button type="submit" name="cancel" value={{v.orderNum}} class="btn btn-outline-danger btn-lg">Cancel</button>
                     </div></td>
 
                </tr>
@@ -158,11 +158,12 @@
            <tr>
            <td style="width: 25%;" ><h4><div id="n"><font color="black">ID: {{k1}}</font></div></h4></td>
 
-              <td style="width: 40%;"><button type="button" id="but" class="btn btn-outline-secondary btn-lg" data-toggle="collapse" data-target="#{{k1}}">Order Details</button>
+              <td style="width: 60%;"><button type="button" id="but" class="btn btn-outline-secondary btn-lg" data-toggle="collapse" data-target="#{{k1}}">Order Details</button>
                 <div id="{{k1}}" class="collapse">
                 </br>
                 <table class="table table-bordered" name="table1" style="width:30%">
                     <tbody>
+                        <tr><td><b>Order Number</b></td><td>{{v1.orderNum}} </td></tr>
                         <tr><td><b>Budget</b></td><td>{{v1.budget}}</td></tr>
                         <tr ><td><b>Capacity</b></td><td>{{v1.capacity}}</td></tr>
                         <tr><td><b>Event type</b></td><td>{{v1.eventtype}}</td></tr>
@@ -183,8 +184,7 @@
                    </td>
               <td style="width:30%"><div class="btn-group .btn-lg round" >
 
-                  <button type="submit" name="customize" value={{k1}} class="btn .btn-lg btn-primary">Edit Customization</button>
-                  <button type="submit" name="cancel" value={{k1}} class="btn .btn-lg btn-warning">Cancel</button>
+                <button type="submit" name="cancel" value={{k1}} class="btn btn-outline-danger btn-lg">Cancel</button>
                 </div></td>
 
            </tr>
@@ -212,11 +212,12 @@
        <tr>
        <td style="width: 25%;" ><h4><div id="n"><font color="black">ID: {{k2}}</font></div></h4></td>
 
-          <td style="width: 40%;"><button type="button" id="but" class="btn btn-outline-secondary btn-lg" data-toggle="collapse" data-target="#{{k2}}">Order Details</button>
+          <td style="width: 60%;"><button type="button" id="but" class="btn btn-outline-secondary btn-lg" data-toggle="collapse" data-target="#{{k2}}">Order Details</button>
             <div id="{{k2}}" class="collapse">
             </br>
             <table class="table table-bordered" name="table1" style="width:30%">
                 <tbody>
+                    <tr><td><b>Order Number</b></td><td>{{v2.orderNum}} </td></tr>
                     <tr><td><b>Budget</b></td><td>{{v2.budget}}</td></tr>
                     <tr ><td><b>Capacity</b></td><td>{{v2.capacity}}</td></tr>
                     <tr><td><b>Event type</b></td><td>{{v2.eventtype}}</td></tr>
@@ -237,8 +238,7 @@
                </td>
           <td style="width:30%"><div class="btn-group .btn-lg round" >
 
-              <button type="submit" name="customize" value={{k2}} class="btn .btn-lg btn-primary">Edit Customization</button>
-              <button type="submit" name="cancel" value={{k2}} class="btn .btn-lg btn-warning">Cancel</button>
+              <button type="submit" name="cancel" value={{k2}} class="btn btn-outline-danger btn-lg">Cancel</button>
             </div></td>
 
        </tr>

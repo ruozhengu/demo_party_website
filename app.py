@@ -21,12 +21,12 @@ product_price = {"000000":12.99,"000001":45.99,"000003":100.99,"000004":70, "000
 paytype = {"visa" : 1, "master-card":2, "amex":3,"vishwa":4, "cash":5}
 
 paytype_reverse = {
-            0 : "Visa Card",
-            1 : "Master-card",
-            2 : "Amercian Express Card",
-            3 : "Vishwa Card",
-            4 : "Cash"
-}
+                    0 : "Visa Card",
+                    1 : "Master-card",
+                    2 : "Amercian Express Card",
+                    3 : "Vishwa Card",
+                    4 : "Cash"
+                }
 
 price = 0
 
@@ -68,7 +68,7 @@ def process_order_data(data):
         temp["status"] = item[12]
         temp["paidamount"] = item[14]
         temp["paid"] = paytype_reverse[int(item[15])]
-
+        temp["orderNum"] = item[17]
         orderitem = item[13].split(" ")
         order =""
         for x in orderitem:
@@ -272,7 +272,13 @@ def userDashboard():
     active,complete,cancelled = process_order_data(join_Order_Event(username))
     if request.method == 'GET':
         return render_template('userDashboard.html', active=active, complete=complete, cancelled=cancelled)
-
+    else:
+        if "cancel" in request.form:
+            orderNum = request.form['cancel']
+            update_db("OrderInfo", "isComplete=2", "Order_number='" + str(orderNum) + "'")
+            return redirect(url_for('userDashboard'))
+        else:
+            return redirect(url_for('dashboard'))
 
 @app.route('/admin', methods = ['GET', 'POST'])
 def admin():

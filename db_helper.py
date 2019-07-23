@@ -95,8 +95,9 @@ def update_db(table, set, wherecond):
         Update matching rows from table based on cond
         Args: all strings
     """
-    query = "UPDATE " + table + " SET " + set + " WHERE " + cond
-    cursor.execute(schema, value)
+    query = "UPDATE " + table + " SET " + set + " WHERE " + wherecond
+    print(query)
+    cursor.execute(query)
     db.commit()
     print(cursor.rowcount, "record updated in db: " + table)
 
