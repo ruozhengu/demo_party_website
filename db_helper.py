@@ -116,3 +116,9 @@ def generate_id(table, pk):
     pks.sort(key=int)
     max_add1 = str(int(pks[-1]) + 1)
     return max_add1.rjust(6, '0')
+
+def join_Order_Event(userid):
+    query = "select * from perfect_party.Event as A inner join perfect_party.OrderInfo as B on A.Event_id=B.Event_id where A.UserId = '"+userid+"' "
+    cursor.execute(query)
+    records = cursor.fetchall()
+    return records

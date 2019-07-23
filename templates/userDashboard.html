@@ -78,13 +78,13 @@
       <div class="container">
 
       </br>
-<h1>Order Dashboard</h1>
+<h1>Your Order History</h1>
 
 </br>
 <div class="panel panel-default"><div class="panel-body">
     <ul class="nav nav-pills flex-column col-md-2">
-      <li class="active"><a href="#tab_a" data-toggle="pill"><div id="indent"><h6>Active Order</h6></div></a></li>
-      <li><a href="#tab_b" data-toggle="pill"><h6>Completed Order</h6></a></li>
+      <li class="active"><a href="#tab_a" data-toggle="pill"><div ><h6>Active Order</h6></div></a></li>
+      <li ><a href="#tab_b" data-toggle="pill"><h6>Completed Order</h6></a></li>
       <li><a href="#tab_c" data-toggle="pill"><h6>Cancelled Order</h6></a></li>
     </ul>
 
@@ -96,43 +96,38 @@
                 <div class="card">
                   <div class="card-header" >
                   <table class="table table-borderless" >
-                      {% for k, v in models.items() %}
-               {% if v.is_deployed %}
-               <tr class="success">
-               {% endif %}
-               {% if not v.is_deployed %}
-               <tr>
-              {% endif %}
-               <td style="width: 25%;" ><h4><div id="n"><a href="#" data-toggle="tooltip" data-placement="right" title="Deployed : {{v.is_deployed}}"><font color="black">{{k}}</font></a></div></h4></td>
+                  {% for k, v in active.items() %}
 
-                  <td style="width: 40%;"><button type="button" id="but" class="btn btn-outline-secondary btn-lg" data-toggle="collapse" data-target="#{{k}}">Model Details</button>
+               <tr>
+               <td style="width: 25%;" ><h4><div id="n"><font color="black">ID: {{k}}</font></div></h4></td>
+
+                  <td style="width: 60%;"><button type="button" id="but" class="btn btn-outline-secondary btn-lg" data-toggle="collapse" data-target="#{{k}}">Order Details</button>
                     <div id="{{k}}" class="collapse">
                     </br>
                     <table class="table table-bordered" name="table1" style="width:30%">
                         <tbody>
-                            <tr><td><b>Time</b></td><td>{{v.time}}</td></tr>
-                            <tr ><td><b>User</b></td><td>{{v.username}}</td></tr>
-                            <tr><td><b>Labels</b></td><td>{{v.columns}}</td></tr>
-                            <tr class="table-warning"><td><b>Deployed</b></td><td>{{v.is_deployed}}</td></tr>
-                            <tr><td><b>Training Data </b></td><td>{{v.train_data_path}}</td></tr>
-                            <tr><td><b>Hyperparameter</b></td><td>{{v.hyperparameter}} </td></tr>
+                            <tr><td ><b>Budget</b></td><td >${{v.budget}}</td></tr>
+                            <tr ><td><b>Capacity</b></td><td>{{v.capacity}} people</td></tr>
+                            <tr><td><b>Event type</b></td><td>{{v.eventtype}}</td></tr>
+                            <tr class="table-warning"><td><b>Status</b></td><td>{{v.status_en}}</td></tr>
+                            <tr><td><b>Start time </b></td><td>{{v.opentime}}(24h)</td></tr>
+                            <tr><td><b>Finish time </b></td><td>{{v.closetime}}(24h)</td></tr>
+                            <tr><td><b>Venue location </b></td><td>{{v.location}}</td></tr>
+                            <tr><td><b>Delivery time </b></td><td>{{v.delivery}}(24h)</td></tr>
+                            <tr><td><b>Orders </b></td><td>{{v.order}}</td></tr>
+                            <tr><td><b>Billing address</b></td><td>{{v.billingaddr}}</td></tr>
+                            <tr><td><b>Paid amount</b></td><td>${{v.paidamount}}</td></tr>
+                            <tr><td><b>Payment type Data </b></td><td>{{v.paid}}</td></tr>
+                            <tr><td><b>Customization</b></td><td>{{v.customization}} </td></tr>
 
                         </tbody>
                         </table>
                         </div>
                        </td>
                   <td style="width:30%"><div class="btn-group .btn-lg round" >
-                      {% if v.is_deployed %}
-                      <button type="submit" name="deploy" value={{k}} class="btn .btn-lg btn-success ">Deploying...</button>
-                      {% endif %}
-                      {% if not v.is_deployed %}
-                      <button type="submit" name="deploy" value={{k}} class="btn .btn-lg btn-primary ">Deploy</button>
-                      {% endif %}
-                      {% if v.is_deployed %}
-                      <button type="submit" name="undeploy" value={{k}} class="btn .btn-lg btn-warning">Undeploy</button>
-                      {% endif %}
-                      <button type="submit" name="download" value={{k}} class="btn .btn-lg btn-info">Download</button>
-                      <button type="submit" name="delete" value={{k}} class="btn .btn-lg btn-danger">Delete</button>
+
+                      <button type="submit" name="customize" value={{k}} class="btn .btn-lg btn-primary">Edit Customization</button>
+                      <button type="submit" name="cancel" value={{k}} class="btn .btn-lg btn-warning">Cancel</button>
                     </div></td>
 
                </tr>
@@ -154,21 +149,46 @@
 
     <div class="tab-pane" id="tab_b">
       <div id="accordion">
-        {% for k1 in train %}
           <div class="card">
             <div class="card-header" >
             <table class="table table-borderless" >
 
-         <tr>
-         <td style="width: 70%" ><h5>{{k1}}</h5></td>
+              {% for k1, v1 in complete.items() %}
 
-            <td style="width:20%"><div class="btn-group .btn-lg round" >
+           <tr>
+           <td style="width: 25%;" ><h4><div id="n"><font color="black">ID: {{k1}}</font></div></h4></td>
 
-                <button type="submit" name="download2" value={{k1}} class="btn btn-success .btn-lg btn-info">Download</button>
-                <button type="submit" name="delete2" value={{k1}} class="btn btn-success .btn-lg btn-danger">Delete</button>
-              </div></td>
+              <td style="width: 40%;"><button type="button" id="but" class="btn btn-outline-secondary btn-lg" data-toggle="collapse" data-target="#{{k1}}">Order Details</button>
+                <div id="{{k1}}" class="collapse">
+                </br>
+                <table class="table table-bordered" name="table1" style="width:30%">
+                    <tbody>
+                        <tr><td><b>Budget</b></td><td>{{v1.budget}}</td></tr>
+                        <tr ><td><b>Capacity</b></td><td>{{v1.capacity}}</td></tr>
+                        <tr><td><b>Event type</b></td><td>{{v1.eventtype}}</td></tr>
+                        <tr class="table-warning"><td><b>Status</b></td><td>{{v1.status_en}}</td></tr>
+                        <tr><td><b>Start time </b></td><td>{{v1.opentime}}</td></tr>
+                        <tr><td><b>Finish time </b></td><td>{{v1.closetime}}</td></tr>
+                        <tr><td><b>Venue location </b></td><td>{{v1.location}}</td></tr>
+                        <tr><td><b>Delivery time </b></td><td>{{v1.delivery}}</td></tr>
+                        <tr><td><b>Orders </b></td><td>{{v1.order}}</td></tr>
+                        <tr><td><b>Billing address</b></td><td>{{v1.billingaddr}}</td></tr>
+                        <tr><td><b>Paid amount</b></td><td>{{v1.paidamount}}</td></tr>
+                        <tr><td><b>Payment type Data </b></td><td>{{v1.paid}}</td></tr>
+                        <tr><td><b>Customization</b></td><td>{{v1.customization}} </td></tr>
 
-         </tr>
+                    </tbody>
+                    </table>
+                    </div>
+                   </td>
+              <td style="width:30%"><div class="btn-group .btn-lg round" >
+
+                  <button type="submit" name="customize" value={{k1}} class="btn .btn-lg btn-primary">Edit Customization</button>
+                  <button type="submit" name="cancel" value={{k1}} class="btn .btn-lg btn-warning">Cancel</button>
+                </div></td>
+
+           </tr>
+           {% endfor %}
 
 
       </table>
@@ -176,7 +196,6 @@
 
       </div>
     </div>
-    {% endfor %}
 
 
 
@@ -184,29 +203,52 @@
   </div>
   <div class="tab-pane" id="tab_c">
   <div id="accordion">
-    {% for k2 in test %}
       <div class="card">
         <div class="card-header" >
         <table class="table table-borderless" >
 
-     <tr>
-     <td style="width: 70%" ><h5>{{k2}}</h5></td>
+          {% for k2, v2 in cancelled.items() %}
 
-        <td style="width:20%"><div class="btn-group .btn-lg round" >
+       <tr>
+       <td style="width: 25%;" ><h4><div id="n"><font color="black">ID: {{k2}}</font></div></h4></td>
 
-            <button type="submit" name="download2" value={{k2}} class="btn btn-success .btn-lg btn-info">Download</button>
-            <button type="submit" name="delete2" value={{k2}} class="btn btn-success .btn-lg btn-danger">Delete</button>
-          </div></td>
+          <td style="width: 40%;"><button type="button" id="but" class="btn btn-outline-secondary btn-lg" data-toggle="collapse" data-target="#{{k2}}">Order Details</button>
+            <div id="{{k2}}" class="collapse">
+            </br>
+            <table class="table table-bordered" name="table1" style="width:30%">
+                <tbody>
+                    <tr><td><b>Budget</b></td><td>{{v2.budget}}</td></tr>
+                    <tr ><td><b>Capacity</b></td><td>{{v2.capacity}}</td></tr>
+                    <tr><td><b>Event type</b></td><td>{{v2.eventtype}}</td></tr>
+                    <tr class="table-warning"><td><b>Status</b></td><td>{{v2.status_en}}</td></tr>
+                    <tr><td><b>Start time </b></td><td>{{v2.opentime}}</td></tr>
+                    <tr><td><b>Finish time </b></td><td>{{v2.closetime}}</td></tr>
+                    <tr><td><b>Venue location </b></td><td>{{v2.location}}</td></tr>
+                    <tr><td><b>Delivery time </b></td><td>{{v2.delivery}}</td></tr>
+                    <tr><td><b>Orders </b></td><td>{{v2.order}}</td></tr>
+                    <tr><td><b>Billing address</b></td><td>{{v2.billingaddr}}</td></tr>
+                    <tr><td><b>Paid amount</b></td><td>{{v2.paidamount}}</td></tr>
+                    <tr><td><b>Payment type Data </b></td><td>{{v2.paid}}</td></tr>
+                    <tr><td><b>Customization</b></td><td>{{v2.customization}} </td></tr>
 
-     </tr>
+                </tbody>
+                </table>
+                </div>
+               </td>
+          <td style="width:30%"><div class="btn-group .btn-lg round" >
 
+              <button type="submit" name="customize" value={{k2}} class="btn .btn-lg btn-primary">Edit Customization</button>
+              <button type="submit" name="cancel" value={{k2}} class="btn .btn-lg btn-warning">Cancel</button>
+            </div></td>
+
+       </tr>
+       {% endfor %}
 
   </table>
 
 
   </div>
 </div>
-{% endfor %}
 
 </div>
 
@@ -219,8 +261,7 @@
 
 
           </br>
-<button id="submit_button2" name="compare" type="submit" class="btn btn-success .btn-lg button_define" value='compare'>Compare Models</button>
-<button id="submit_button2" type="submit" class="btn btn-primary .btn-lg button_define" name="submit_button" value='train'>Train New Model</button>
+<button id="submit_button2" name="return" type="submit" class="btn btn-success .btn-lg button_define" value='compare'>Back to Dashboard</button>
 
 
 </br>

@@ -20,7 +20,80 @@ product_price = {"000000":12.99,"000001":45.99,"000003":100.99,"000004":70, "000
 
 paytype = {"visa" : 1, "master-card":2, "amex":3,"vishwa":4, "cash":5}
 
+paytype_reverse = {
+            0 : "Visa Card",
+            1 : "Master-card",
+            2 : "Amercian Express Card",
+            3 : "Vishwa Card",
+            4 : "Cash"
+}
+
 price = 0
+
+def menu_process():
+    """
+        Lookup table for product name - product id in menu table
+    """
+    data = selectAll_db("Menu")
+    lookup = {}
+    for item in data:
+        lookup[item[0]] = item[1]
+    return lookup
+
+def process_order_data(data):
+    """
+        active order = 0,
+        cancelled order = 2, completed = 1
+    """
+    print(data)
+    global eventType
+    global paytype_reverse
+    active = {}
+    complete = {}
+    cancelled = {}
+    lookup = menu_process()
+    for item in data:
+        temp = {}
+        id = item[0]
+        temp["budget"] = item[1]
+        temp["capacity"] = item[2]
+        temp["eventtype"] = eventType[str(item[3])]
+        temp["opentime"] = item[4]
+        temp["closetime"] = item[5]
+        temp["location"] = item[6]
+        temp["customization"] = item[7]
+        temp["delivery"] = item[8]
+        temp["venueid"] = item[10]
+        temp["billingaddr"] = item[11]
+        temp["status"] = item[12]
+        temp["paidamount"] = item[14]
+        temp["paid"] = paytype_reverse[int(item[15])]
+
+        orderitem = item[13].split(" ")
+        order =""
+        for x in orderitem:
+            if x == "":
+                break
+            if int(x[x.find("-")+1:]) != 0:
+                s = lookup[x[:x.find("-")]] + ",qty:" + x[x.find("-")+1:] + " "
+                order += s
+        temp["order"] = order
+        if int(temp["status"]) == 0:
+            temp["status_en"] = "Active/Pending"
+            active[id] = temp
+        elif int(temp["status"]) == 1:
+            temp["status_en"] = "Completed"
+            complete[id] = temp
+        else:
+            temp["status_en"] = "Cancelled"
+            cancelled[id] = temp
+
+    print(active)
+    print(complete)
+    print(cancelled)
+    return active, complete, cancelled #k v pairs
+
+
 
 @app.route('/createOrder', methods = ['GET', 'POST'])
 def createOrder():
@@ -187,9 +260,18 @@ def signup():
             flash("Error! You password inputs do not match.")
             return render_template('signup.html')
 
+
+
 @app.route('/userDashboard', methods = ['GET', 'POST'])
 def userDashboard():
-    return "haha"
+    """
+        active order = 1, pending order = 0,
+        cancelled order = 2, completed = 3
+    """
+    global username
+    active,complete,cancelled = process_order_data(join_Order_Event(username))
+    if request.method == 'GET':
+        return render_template('userDashboard.html', active=active, complete=complete, cancelled=cancelled)
 
 
 @app.route('/admin', methods = ['GET', 'POST'])
