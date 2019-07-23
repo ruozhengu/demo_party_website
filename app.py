@@ -443,7 +443,108 @@ def adminDashboard():
             delete_db("Event", "Event_id='" + str(orderNum) + "'")
 
 
+        if "add_cust" in request.form:
+            print("inserting customer record")
+            UserId = request.form['username_add']
+            Password = request.form['pwd_add']
+            Lastname = request.form['la_add']
+            Firstname = request.form['fn_add']
+            Phone = request.form['phone_add']
+            Email = request.form['email_add']
+            Postalcode = request.form['po_add']
+            Address = request.form['add_add']
+            value=(UserId,Password,Firstname,Lastname,Phone,Email,Address,Postalcode)
+            insert_db("Customer", schema_customer, value)
+        if "addorder" in request.form:
+            print("inserting order record")
+            Billingadd = request.form['add_bill']
+            order = request.form['add_order']
+            iscomplete = request.form['add_com']
+            paidamount = request.form['add_pa']
+            ispaid = request.form['add_ip']
+            paidtype = request.form['add_pt']
+            card = request.form['add_ct']
+            eventid = request.form['add_ei']
+            user = request.form['add_ui']
+            pk_id = generate_id("OrderInfo", "Order_number")
+            value=(Billingadd,int(iscomplete),order,int(paidamount),int(ispaid),int(paidtype),pk_id,int(card),eventid,user)
+            insert_db("OrderInfo", schema_order, value)
+        if "addevent" in request.form:
+            print("inserting event record")
+            pk_id = generate_id("Event", "Event_id")
+            budget = request.form['bud']
+            capacity = request.form['cap']
+            et = request.form['et']
+            open = request.form['open']
+            close = request.form['close']
+            loc = request.form['loc']
+            cust = request.form['cust']
+            delivery = request.form['de']
+            user = request.form['us']
+            venue = request.form['ve']
+            value=(pk_id,float(budget),int(capacity),int(et),open,close,loc,cust,delivery,user,venue)
+            insert_db("Event", schema_event, value)
+        if "addsupplier" in request.form:
+            print("inserting supplier record")
+            pk_id = generate_id("Supplier", "Supplier_ID")
+            phone = request.form['su_phone']
+            Name = request.form['su_name']
+            comp = request.form['su_compname']
+            addr = request.form['su_add']
+            email = request.form['su_email']
+            value=(pk_id,phone,Name,comp,addr,email)
+            insert_db("Supplier", schema_supplier, value)
+        if "addrecord" in request.form:
+            print("inserting supply item record")
+            pk_id = generate_id("Supply_record", "Supplier_ID")
+            pi = request.form['re_pi']
+            price = request.form['re_price']
+            qty = request.form['re_qty']
+            value=(pk_id,pk_id,pi,price,qty)
+            insert_db("Supply_record", schema_record, value)
+        if "gotosupplier" in request.form:
+            return redirect(url_for('supplierList'))
+        if "gotosupplierrecord" in request.form:
+            return redirect(url_for('supplyRecord'))
         return redirect(url_for('adminDashboard'))
+
+@app.route('/supplierList', methods = ['GET', 'POST'])
+def supplierList():
+    data = selectAll_db("Supplier")
+    if request.method == 'GET':
+        return render_template('supplier.html', data=data)
+    else:
+        id = request.form['id']
+        target = request.form['info']
+        select = request.form.get('options')
+        try:
+            update_db("Supplier", str(select) + "='" + str(target) +"'", "Supplier_ID='" + str(id) + "'")
+        except:
+            try:
+                update_db("Supplier", str(select) + "=" + str(target), "Supplier_ID='" + str(id) + "'")
+            except:
+                flash("Error! update to table generates an error. Please provide correct syntax.")
+        return redirect(url_for('supplierList'))
+
+@app.route('/supplyRecord', methods = ['GET', 'POST'])
+def supplyRecord():
+    data = selectAll_db("Supply_record")
+    if request.method == 'GET':
+        return render_template('supplyRecord.html', data=data)
+    else:
+        id = request.form['id']
+        target = request.form['info']
+        select = request.form.get('options')
+        try:
+            update_db("Supply_record", str(select) + "='" + str(target) +"'", "Supplier_ID='" + str(id) + "'")
+        except:
+            try:
+                update_db("Supply_record", str(select) + "=" + str(target), "Supplier_ID='" + str(id) + "'")
+            except:
+                flash("Error! update to table generates an error. Please provide correct syntax.")
+        return redirect(url_for('supplyRecord'))
+
+
 
 @app.route('/dashboard', methods = ['GET', 'POST'])
 def dashboard():

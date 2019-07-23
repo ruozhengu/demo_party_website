@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>Supplier Information</title>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="app.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script type="text/javascript" src="ui/jquery-ui.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="ui/jquery-ui.theme.min.css">
+        <link rel="stylesheet" type="text/css" href="style.css" />
+
+    </head>
+    <body>
+      <form action="" method="post">
+
+        <div class="container">
+            <div id="header">
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="#">Perfect Party Inc.</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div id="mainDiv">
+                <h2>SUPPLY RECORD LIST</h2>
+                <table class="table table-hover">
+                    <thead>
+                        <tr id="mainTr">
+                            <th id="manager" class="cur">Supplier ID</th>
+                            <th id="name" class="cur">Product ID</th>
+                            <th id="surname" class="cur">Price</th>
+                            <th id="createdAt" class="cur">Quantity</th>
+
+                        </tr>
+                    </thead>
+                        <tbody id="customersList">
+                          {% for x in data %}
+                          <tr>
+                          <td>{{x[0]}}</td><td>{{x[2]}}</td><td>{{x[3]}}</td><td>{{x[4]}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                </table>
+                <a href="#" data-toggle="modal" data-target="#edit"><button type="button" class="btn btn-success" name="change">Change Fields</button></a>
+                <div class="modal fade" id="edit" role="dialog">
+                  <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Change Information</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label class="control-label col-sm-3 col-sm-push-1" for="email">What to change:</label>
+                      <div class="col-sm-6 col-sm-push-1">
+                         <div class="form-group" style="margin-bottom:0;">
+                        <select  id="mymultiselect" name="options" class="form-control" style="border-radius:0; margin-left:15px; width:90%;">
+                          <option value="Phone">Product_ID</option>
+                          <option value="Price">Price</option>
+                          <option value="Quantity">Quantity</option>
+                        </select>
+                      </div>
+                      </div>
+                      </div>
+                      </br></br>
+                      <div class="form-group">
+                        </br></br>
+                        <label class="control-label col-sm-3 col-sm-push-1" for="email">Supplier ID:</label>
+                        <div class="col-sm-6 col-sm-push-1">
+
+                          <div class="form-group" style="margin-bottom:0;">
+                        <input style="border-radius:5px; margin-left:15px; width:90%;" type="text" name="id" class="form-control">
+                      </br></br>
+                      </div>
+                      </div>
+                      </div>
+                      <div class="form-group">
+                      </br></br></br>
+                        <label class="control-label col-sm-3 col-sm-push-1" for="email">Change to:</label>
+                        <div class="col-sm-6 col-sm-push-1">
+
+                          <div class="form-group" style="margin-bottom:0;">
+                        <input style="border-radius:5px; margin-left:15px; width:90%;" type="text" name="info" class="form-control">
+                      </br></br>
+                      </div>
+                      </div>
+                      </div>
+                      </div></br></br></br></br>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" name="edit" >Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+            </div>
+
+
+          </form>
+    </body>
+</html>

@@ -21,6 +21,21 @@ schema_customer = "INSERT INTO perfect_party.Customer (UserId,\
                             Postalcode) VALUES \
                             (%s, %s, %s, %s, %s, %s, %s, %s)"
 
+schema_supplier = "INSERT INTO perfect_party.Supplier (Supplier_ID,\
+                            Phone, \
+                            Supplier_name, \
+                            Company_name, \
+                            Company_Address, \
+                            Email) VALUES \
+                            (%s, %s, %s, %s, %s, %s)"
+
+schema_record = "INSERT INTO perfect_party.Supply_record (Supplier_ID,\
+                            Transaction, \
+                            Product_ID, \
+                            Price, \
+                            Quantity) VALUES \
+                            (%s, %s, %s, %s, %s)"
+
 
 schema_order = "INSERT INTO perfect_party.OrderInfo ( Billingaddr, \
                     Iscomplete ,\

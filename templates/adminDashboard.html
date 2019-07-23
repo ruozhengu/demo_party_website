@@ -32,9 +32,21 @@
         <input type="text" class="form-control" placeholder="search by customer username">
         <span class="input-group-btn">
           <button class="btn btn-default btn-search" type="button" title="Clear search"><i class="fa fa-search" aria-hidden="true"></i></button>
-          <a href="#" class="btn btn-default btn-search" title="Export" style="margin-left: 4px; border: 1px solid #ccc; color:#555; background:#ededed;" data-toggle="modal" data-target="#export-report">
-                  <i class="fa fa-download" aria-hidden="true"></i>
+          <a href="#" class="btn btn-default btn-search" title="Export" style="margin-left: 4px; border: 1px solid #ccc; color:#555; background:#ededed;" data-toggle="modal" data-target="#addevent">
+                  <i class="fa fa-plus-square-o" aria-hidden="true"></i>
                 </a>
+          <a href="#" class="btn btn-default btn-search" title="Export" style="margin-left: 4px; border: 1px solid #ccc; color:#555; background:#ededed;" data-toggle="modal" data-target="#addorder">
+                        <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                      </a>
+          <a href="#" class="btn btn-default btn-search" title="Export" style="margin-left: 4px; border: 1px solid #ccc; color:#555; background:#ededed;" data-toggle="modal" data-target="#addcustomer">
+                                    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                  </a>
+              <a href="#" class="btn btn-default btn-search" title="Export" style="margin-left: 4px; border: 1px solid #ccc; color:#555; background:#ededed;" data-toggle="modal" data-target="#addrecord">
+                                                            <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                                          </a>
+                        <a href="#" class="btn btn-default btn-search" title="Export" style="margin-left: 4px; border: 1px solid #ccc; color:#555; background:#ededed;" data-toggle="modal" data-target="#addsupplier">
+                                                                                    <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+                                                                                  </a>
         </span>
       </div>
     </div>
@@ -1052,64 +1064,154 @@
 
 
   <!-- Modal 'EXPORT REPORT' -->
-  <div class="modal fade" id="export-report" role="dialog">
+  <div class="modal fade" id="addevent" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Elite Campaigns <span class="forte">Report Export</span></h4>
+          <h4 class="modal-title">Add Event Record</span></h4>
         </div>
         <div class="modal-body">
 
-          <form action="#" class="form-horizontal" id="">
-            <input type="hidden" name="person_id" value="7908">
 
-            <div class="form-group">
-              <label class="control-label col-sm-3 col-sm-push-1" for="email">From:</label>
-              <div class="col-sm-6 col-sm-push-1">
 
-                <div class="form-group" style="margin-bottom:0;">
-                  <select class="form-control" id="" style="border-radius:0; margin-left:15px; width:90%;">
-                    <option>01/01/2019</option>
-                  </select>
-                 </div>
-              </div>
-            </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Budget:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="bud" class="form-control" value="90.00">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Capacity:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="cap" class="form-control" value="7">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Event Type:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="et" class="form-control" value="2">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Party Open Time:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="open" class="form-control" value="2017-07-07 12:11:10">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Party Close Time:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="close" class="form-control" value="2018-07-07 12:11:10">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Location:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="loc" class="form-control" value="234 Col st">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Customization:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="cust" class="form-control" value="nothing special">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Delivery Time:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="de" class="form-control" value="12:12:12">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">UserId:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="us" class="form-control" value="cs">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Venue id:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="ve" class="form-control" value="000002">
+    </div>
 
-            <div class="form-group">
-              <label class="control-label col-sm-3 col-sm-push-1" for="email">To:</label>
-              <div class="col-sm-6 col-sm-push-1">
 
-                <div class="form-group" style="margin-bottom:0;">
-                  <select class="form-control" id="" style="border-radius:0; margin-left:15px; width:90%;">
-                    <option>03/06/19</option>
-                  </select>
-                 </div>
-              </div>
-            </div>
 
-            <div class="form-group">
-              <label class="control-label col-sm-3 col-sm-push-1" for="email">Exporting...</label>
-              <div class="col-sm-6 col-sm-push-1">
+  </div>
 
-                <div class="form-group" style="margin-bottom:0;">
-
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">70%</div>
-                  </div>
-
-                 </div>
-              </div>
-            </div>
-
-          </form>
-
-        </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" data-dismiss="modal">Export</button>
+          <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-primary" name="addevent" ></input>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- end of 'export report' modal -->
+
+  <!-- Modal 'EXPORT REPORT' -->
+  <div class="modal fade" id="addrecord" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Supply Item Record</span></h4>
+        </div>
+        <div class="modal-body">
+
+
+
+
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Product ID:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="re_pi" class="form-control" value="000004">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Price:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="re_price" class="form-control" value="10">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Quantity:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="re_qty" class="form-control" value="3">
+    </div>
+
+
+  </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-primary" name="addrecord" ></input>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- end of 'export report' modal -->
+  <!-- Modal 'EXPORT REPORT' -->
+  <div class="modal fade" id="addsupplier" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Supplier Record</span></h4>
+        </div>
+        <div class="modal-body">
+
+
+
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Phone:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="su_phone" class="form-control" value="99999999">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Supplier Name:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="su_name" class="form-control" value="david">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Company Name:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="su_compname" class="form-control" value="good comp">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Address:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="su_add" class="form-control" value="223 king st">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Email:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="su_email" class="form-control" value="goodcomp@gmail.com">
+    </div>
+
+
+
+  </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-primary" name="addsupplier" ></input>
         </div>
       </div>
 
@@ -1117,6 +1219,135 @@
   </div><!-- end of 'export report' modal -->
 
 
+  <!-- Modal 'EXPORT REPORT' -->
+  <div class="modal fade" id="addorder" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Order Record</span></h4>
+        </div>
+        <div class="modal-body">
+
+
+
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Billing Addr:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="add_bill" class="form-control" value="200 university ave">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Order:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="add_order" class="form-control" value="000000-1 000001-0 000003-0 000004-0 000005-0 000006-1">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Is Complete:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="add_com" class="form-control" value="1">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Paid Amount:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="add_pa" class="form-control" value="97">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Is Paid:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="add_ip" class="form-control" value="0">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Paid Type:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="add_pt" class="form-control" value="4">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Card Type:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="add_ct" class="form-control" value="4">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Event Id:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="add_ei" class="form-control" value="000008">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">UserId:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="add_ui" class="form-control" value="cs">
+    </div>
+
+
+
+  </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default"  data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-primary" name="addorder" ></input>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- end of 'export report' modal -->
+
+
+
+  <!-- Modal 'EXPORT REPORT' -->
+  <div class="modal fade" id="addcustomer" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Customer Record</span></h4>
+        </div>
+        <div class="modal-body">
+
+
+
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Username:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="username_add" class="form-control" value="abc">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Password:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="pwd_add" class="form-control" value="123456">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Lastname:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="la_add" class="form-control" value="Xu">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Firstname:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="fn_add" class="form-control" value="Kevin">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Phone:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="phone_add" class="form-control" value="987654321">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Email:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="email_add" class="form-control" value="r8gu@edu.uwaterloo.ca">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Postal Code:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="po_add" class="form-control" value="N2L 2E2">
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3 ">Address:</label>
+      <input style="border-radius:5px; margin-left:20%; width:50%;" type="text" name="add_add" class="form-control" value="315 king st east">
+    </div>
+
+  </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-primary" name="add_cust" ></input>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- end of 'export report' modal -->
+
+
+
+
+<button type="submit" class="btn btn-success" name="gotosupplier">Supplier List</button>
+<button type="submit" class="btn btn-success" name="gotosupplierrecord">Supply Record List</button>
 
 
 </div><!-- end of container -->
