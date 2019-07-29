@@ -3,7 +3,7 @@
 
 #### 1. Technology and File Description
 
-_`the_perfect_party` is a website demo created for CS348 course at University of Waterloo._
+_`the_perfect_party` is a website application with dynamic JS interfaces and python backend._
 
 ---
 
