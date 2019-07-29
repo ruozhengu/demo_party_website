@@ -5,6 +5,8 @@
 
 _`the_perfect_party` is a website application with dynamic JS interfaces and python backend._
 
+Author: Gabriel (Ruozhen) Gu
+
 ---
 
 **The main features listed below:**
