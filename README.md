@@ -5,7 +5,7 @@
 
 _`the_perfect_party` is a website demo created for CS348 course at University of Waterloo._
 
---
+---
 
 **The main features listed below:**
 
@@ -26,7 +26,8 @@ _`the_perfect_party` is a website demo created for CS348 course at University of
 * Modification, Escalation, Deletion and Insertion of any past/new orders or events
 * Supplier and Stock availability monitoring and modification support.
 
---
+---
+
 **Technology Breakdown:**
 
 Backend: `/app.py`
@@ -81,6 +82,6 @@ Three are three main parts of SQL code to demonstrate. **_Please refer to file `
 2. Creation, deletion and update operations on record
 3. Select operations with/without specific conditions
 
---
+---
 
 
